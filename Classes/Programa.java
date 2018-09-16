@@ -45,12 +45,11 @@ public class Programa
 		          e.getMessage());
 		    }
 			int qtdDeCoordenadas = qtdLinhas * qtdColunas;
-		    caminho = new Pilha<Cordenada>(qtdDeCoordenadas);
 
+		    caminho = new Pilha<Cordenada>(qtdDeCoordenadas);
 		    possibilidades = new Pilha<Fila<Coordenada>>(qtdDeCoordenadas);
 
 		    Coordenada atual;
-
 			boolean achou = false;
 			for(int X; X < qtdColunas; X++)
 		    	if(labirinto[X][0] == "E")
@@ -87,6 +86,8 @@ public class Programa
 			if(!achou)
 				throw new Exception("Labirinto sem entrada valida!");
 
+			Fila<Coordenada> fila = new Fila<Coordenada>(3);
+			fila = acharAdjacentes(atual);
 
 		}
 
@@ -97,45 +98,34 @@ public class Programa
 
 	}
 
-	public Coordenada acharEntrada() throws Exception
+	public Coordenada acharAdjacentes(Coordenada atual) throws Exception
 	{
-		boolean achou = false;
-		for(int X; X < qtdColunas; X++)
-		    if(labirinto[X][0] == "E")
-		    {
-		    	achou = true;
-		    	atual = new Coordenada(X,0);
-		    	break;
-			}
-		if(!achou)
-		for(int X; X < qtdColunas; X++)
-			if(labirinto[X][qtdLinhas - 1] == "E")
-			{
-				achou = true;
-				atual = new Coordenada(X,qtdLinhas - 1);
-				break;
-			}
-		if(!achou)
-		for(int Y = 1; Y < qtdLinhas - 1; Y++) //Começa em 1 e termina em qtdLinhas - 1 pois o primeiro e o ultimo ja foram verificados
-			if(labirinto[0][Y] == "E")
-			{
-				achou = true;
-				atual = new Coordenada(0,Y);
-				break;
-			}
-		if(!achou)
-		for(int Y = 1; Y < qtdLinhas - 1; Y++) //Começa em 1 e termina em qtdLinhas - 1 pois o primeiro e o ultimo ja foram verificados
-			if(labirinto[qtdColunas - 1][Y] == "E")
-			{
-				achou = true;
-				atual = new Coordenada(qtdColunas - 1,Y);
-				break;
-			}
+		int X = atual.x;
+		int Y = atual.y;
+		char[] ret;
+		qtdRet = 0;
 
-		if(achou)
-		return atual;
+		if(labirinto[X][Y - 1] == " " ||labirinto[X][Y - 1] == "S")
+		{
+			ret[qtdRet] = labirinto[X][Y - 1];
+			qtdRet++;
+		}
+		if(labirinto[X + 1][Y] == " " || labirinto[X + 1][Y] == "S")
+		{
+			ret[qtdRet] = labirinto[X + 1][Y];
+			qtdRet++;
+		}
+		if(labirinto[X][Y + 1] == " " || labirinto[X][Y + 1] == "S")
+		{
+			ret[qtdRet] = labirinto[X][Y + 1];
+			qtdRet++;
+		}
+		if(labirinto[X - 1][Y] == " " || labirinto[X - 1][Y] == "S")
+		{
+			ret[qtdRet] = labirinto[X][Y - 1];
+			qtdRet++;
+		}
 
-		else
-			throw new Exception("Labirinto sem entrada valida!");
+		return ret;
 	}
 }
