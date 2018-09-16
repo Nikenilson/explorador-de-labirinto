@@ -49,7 +49,43 @@ public class Programa
 
 		    possibilidades = new Pilha<Fila<Coordenada>>(qtdDeCoordenadas);
 
-		    Coordenada atual = acharEntrada();
+		    Coordenada atual;
+
+			boolean achou = false;
+			for(int X; X < qtdColunas; X++)
+		    	if(labirinto[X][0] == "E")
+		    	{
+		   	 		achou = true;
+		   	 		atual = new Coordenada(X,0);
+		    		break;
+				}
+			if(!achou)
+			for(int X; X < qtdColunas; X++)
+				if(labirinto[X][qtdLinhas - 1] == "E")
+				{
+					achou = true;
+					atual = new Coordenada(X,qtdLinhas - 1);
+					break;
+				}
+			if(!achou)
+			for(int Y = 1; Y < qtdLinhas - 1; Y++) //Começa em 1 e termina em qtdLinhas - 1 pois o primeiro e o ultimo ja foram verificados
+				if(labirinto[0][Y] == "E")
+				{
+					achou = true;
+					atual = new Coordenada(0,Y);
+					break;
+				}
+			if(!achou)
+			for(int Y = 1; Y < qtdLinhas - 1; Y++) //Começa em 1 e termina em qtdLinhas - 1 pois o primeiro e o ultimo ja foram verificados
+				if(labirinto[qtdColunas - 1][Y] == "E")
+				{
+					achou = true;
+					atual = new Coordenada(qtdColunas - 1,Y);
+					break;
+				}
+
+			if(!achou)
+				throw new Exception("Labirinto sem entrada valida!");
 
 
 		}
