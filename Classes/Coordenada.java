@@ -3,13 +3,13 @@ public class Coordenada
 	private int x;
 	private int y;
 
-	public Coordenada(int eixoX, eixoY) throws Exception
+	public Coordenada(int X, int Y) throws Exception
 	{
-		if(eixoX < 0 || eixoY < 0)
+		if(X < 0 || Y < 0)
 			throw new Exception("Coordenadas invalidas");
 
-		this.x = eixoX;
-		this.y = eixoY;
+		this.x = X;
+		this.y = Y;
 	}
 
 	public int getX()
@@ -33,12 +33,12 @@ public class Coordenada
 		if(obj.getClass() != this.getClass())
 		return false;
 
-		Coordenada c = (Cordenada) obj;
+		Coordenada c = (Coordenada) obj;
 
-		if(this.x != obj.x)
+		if(this.x != c.x)
 		return false;
 
-		if(this.y != obj.y)
+		if(this.y != c.y)
 		return false;
 
 		return true;

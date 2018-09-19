@@ -8,8 +8,9 @@ public class Programa
 	public static void main(String[] args)  throws Exception
 	{
 		char[][] labirinto;
-		Pilha<Cordenada> caminho;
+		Pilha<Coordenada> caminho;
 		Pilha<Fila<Coordenada>> possibilidades;
+		boolean achouSaida = false;
 
 		try
 		{
@@ -23,8 +24,8 @@ public class Programa
 		    	FileReader arq = new FileReader(nome);
 		      	BufferedReader lerArq = new BufferedReader(arq);
 
-		      	qtdLinhas = lerArq.readLine();
-		      	qtdColunas = lerArq.readLine();
+		      	qtdLinhas = Integer.parseInt(lerArq.readLine());
+		      	qtdColunas = Integer.parseInt(lerArq.readLine());
 
 		      	labirinto = new char[qtdColunas][qtdLinhas];
 
@@ -46,13 +47,13 @@ public class Programa
 		    }
 			int qtdDeCoordenadas = qtdLinhas * qtdColunas;
 
-		    caminho = new Pilha<Cordenada>(qtdDeCoordenadas);
+		    caminho = new Pilha<Coordenada>(qtdDeCoordenadas);
 		    possibilidades = new Pilha<Fila<Coordenada>>(qtdDeCoordenadas);
 
-		    Coordenada atual;
+		    Coordenada atual = null;
 			boolean achou = false;
 			for(int X; X < qtdColunas; X++)
-		    	if(labirinto[X][0] == "E")
+		    	if(labirinto[X][0] == 'E')
 		    	{
 		   	 		achou = true;
 		   	 		atual = new Coordenada(X,0);
@@ -60,7 +61,7 @@ public class Programa
 				}
 			if(!achou)
 			for(int X; X < qtdColunas; X++)
-				if(labirinto[X][qtdLinhas - 1] == "E")
+				if(labirinto[X][qtdLinhas - 1] == 'E')
 				{
 					achou = true;
 					atual = new Coordenada(X,qtdLinhas - 1);
@@ -68,7 +69,7 @@ public class Programa
 				}
 			if(!achou)
 			for(int Y = 1; Y < qtdLinhas - 1; Y++) //Começa em 1 e termina em qtdLinhas - 1 pois o primeiro e o ultimo ja foram verificados
-				if(labirinto[0][Y] == "E")
+				if(labirinto[0][Y] == 'E')
 				{
 					achou = true;
 					atual = new Coordenada(0,Y);
@@ -76,7 +77,7 @@ public class Programa
 				}
 			if(!achou)
 			for(int Y = 1; Y < qtdLinhas - 1; Y++) //Começa em 1 e termina em qtdLinhas - 1 pois o primeiro e o ultimo ja foram verificados
-				if(labirinto[qtdColunas - 1][Y] == "E")
+				if(labirinto[qtdColunas - 1][Y] == 'E')
 				{
 					achou = true;
 					atual = new Coordenada(qtdColunas - 1,Y);
@@ -87,7 +88,7 @@ public class Programa
 				throw new Exception("Labirinto sem entrada valida!");
 
 			Fila<Coordenada> fila = new Fila<Coordenada>(3);
-			fila = acharAdjacentes(atual);
+			fila.guarde(acharAdjacentes(atual));
 
 		}
 
@@ -100,31 +101,37 @@ public class Programa
 
 	public Coordenada acharAdjacentes(Coordenada atual) throws Exception
 	{
-		int X = atual.x;
-		int Y = atual.y;
-		char[] ret;
-		qtdRet = 0;
+		int X = atual.getX;
+		int Y = atual.getY;
+		Coordenada[] ret;
+		int qtdRet = 0;
 
-		if(labirinto[X][Y - 1] == " " ||labirinto[X][Y - 1] == "S")
+		if(labirinto[X][Y - 1] == ' ')
 		{
-			ret[qtdRet] = labirinto[X][Y - 1];
+			ret[qtdRet] = new Coordenada(X , Y - 1);
 			qtdRet++;
 		}
-		if(labirinto[X + 1][Y] == " " || labirinto[X + 1][Y] == "S")
+		if(labirinto[X + 1][Y] == ' ')
 		{
-			ret[qtdRet] = labirinto[X + 1][Y];
+			ret[qtdRet] = new Coordenada(X + 1 , Y);
 			qtdRet++;
 		}
-		if(labirinto[X][Y + 1] == " " || labirinto[X][Y + 1] == "S")
+		if(labirinto[X][Y + 1] == ' ')
 		{
-			ret[qtdRet] = labirinto[X][Y + 1];
+			ret[qtdRet] = new Coordenada(X , Y + 1);
 			qtdRet++;
 		}
-		if(labirinto[X - 1][Y] == " " || labirinto[X - 1][Y] == "S")
+		if(labirinto[X - 1][Y] == ' ')
 		{
-			ret[qtdRet] = labirinto[X][Y - 1];
+			ret[qtdRet] = new Coordenada(X , Y - 1);
 			qtdRet++;
 		}
+
+		if(labirinto[X][Y - 1] == 'S'
+		 ||labirinto[X + 1][Y] == 'S'
+	 	 ||labirinto[X][Y + 1] == 'S'
+		 ||labirinto[X - 1][Y] == 'S')
+		achouSaida = true;
 
 		return ret;
 	}
