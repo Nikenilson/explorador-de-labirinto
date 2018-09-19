@@ -87,8 +87,46 @@ public class Programa
 			if(!achou)
 				throw new Exception("Labirinto sem entrada valida!");
 
-			Fila<Coordenada> fila = new Fila<Coordenada>(3);
-			fila.guarde(acharAdjacentes(atual));
+			while(!achouSaida /*&& modo != progressivo*/)
+			{
+				Fila<Coordenada> fila = new Fila<Coordenada>(3);
+
+				int X = atual.getX;
+				int Y = atual.getY;
+
+				if(labirinto[X][Y - 1] == ' ')
+				{
+					fila.guarde(new Coordenada(X , Y - 1));
+				}
+				if(labirinto[X + 1][Y] == ' ')
+				{
+					fila.guarde(new Coordenada(X + 1 , Y));
+				}
+				if(labirinto[X][Y + 1] == ' ')
+				{
+					fila.guarde(new Coordenada(X , Y + 1));
+				}
+				if(labirinto[X - 1][Y] == ' ')
+				{
+					fila.guarde(new Coordenada(X , Y - 1));
+				}
+
+				if(labirinto[X][Y - 1] == 'S'
+			 	||labirinto[X + 1][Y] == 'S'
+			 	||labirinto[X][Y + 1] == 'S'
+	         	||labirinto[X - 1][Y] == 'S')
+					achouSaida = true;
+
+
+				atual = fila.getUmItem;
+
+				labirinto[atual.getX][atual.getY] = '*';
+
+				caminho.guarde(atual);
+
+				possibilidades.guarde(fila);
+			}
+
 
 		}
 
@@ -99,40 +137,4 @@ public class Programa
 
 	}
 
-	public Coordenada acharAdjacentes(Coordenada atual) throws Exception
-	{
-		int X = atual.getX;
-		int Y = atual.getY;
-		Coordenada[] ret;
-		int qtdRet = 0;
-
-		if(labirinto[X][Y - 1] == ' ')
-		{
-			ret[qtdRet] = new Coordenada(X , Y - 1);
-			qtdRet++;
-		}
-		if(labirinto[X + 1][Y] == ' ')
-		{
-			ret[qtdRet] = new Coordenada(X + 1 , Y);
-			qtdRet++;
-		}
-		if(labirinto[X][Y + 1] == ' ')
-		{
-			ret[qtdRet] = new Coordenada(X , Y + 1);
-			qtdRet++;
-		}
-		if(labirinto[X - 1][Y] == ' ')
-		{
-			ret[qtdRet] = new Coordenada(X , Y - 1);
-			qtdRet++;
-		}
-
-		if(labirinto[X][Y - 1] == 'S'
-		 ||labirinto[X + 1][Y] == 'S'
-	 	 ||labirinto[X][Y + 1] == 'S'
-		 ||labirinto[X - 1][Y] == 'S')
-		achouSaida = true;
-
-		return ret;
-	}
 }
