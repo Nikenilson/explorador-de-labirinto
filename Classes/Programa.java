@@ -7,7 +7,7 @@ public class Programa
 
 	public static void main(String[] args)  throws Exception
 	{
-		char[][] labirinto;
+		char[][] labirinto = null;
 		Pilha<Coordenada> caminho;
 		Pilha<Fila<Coordenada>> possibilidades;
 		boolean achouSaida = false;
@@ -17,8 +17,8 @@ public class Programa
 			Scanner ler = new Scanner(System.in);
 			System.out.printf("Informe o nome de arquivo texto:\n");
     		String nome = ler.nextLine();
-    		int qtdLinhas;
-    		int qtdColunas;
+    		int qtdLinhas = 0;
+    		int qtdColunas = 0;
 			try
 			{
 		    	FileReader arq = new FileReader(nome);
@@ -52,51 +52,51 @@ public class Programa
 
 		    Coordenada atual = null;
 			boolean achou = false;
-			for(int X; X < qtdColunas; X++)
-		    	if(labirinto[X][0] == 'E')
+			for(int Xi = 0; Xi < qtdColunas; Xi++)
+		    	if(labirinto != null || labirinto[Xi][0] == 'E')
 		    	{
 		   	 		achou = true;
-		   	 		atual = new Coordenada(X,0);
+		   	 		atual = new Coordenada(Xi,0);
 		    		break;
 				}
-			if(!achou)
-			for(int X; X < qtdColunas; X++)
-				if(labirinto[X][qtdLinhas - 1] == 'E')
+			else if(!achou)
+			for(Xi = 0; Xi < qtdColunas; Xi++)
+				if(labirinto[Xi][qtdLinhas - 1] == 'E')
 				{
 					achou = true;
-					atual = new Coordenada(X,qtdLinhas - 1);
+					atual = new Coordenada(Xi,qtdLinhas - 1);
 					break;
 				}
-			if(!achou)
-			for(int Y = 1; Y < qtdLinhas - 1; Y++) //Começa em 1 e termina em qtdLinhas - 1 pois o primeiro e o ultimo ja foram verificados
-				if(labirinto[0][Y] == 'E')
+			else if(!achou)
+			for(int Yi = 1; Yi < qtdLinhas - 1; Yi++) //Começa em 1 e termina em qtdLinhas - 1 pois o primeiro e o ultimo ja foram verificados
+				if(labirinto[0][Yi] == 'E')
 				{
 					achou = true;
-					atual = new Coordenada(0,Y);
+					atual = new Coordenada(0,Yi);
 					break;
 				}
-			if(!achou)
-			for(int Y = 1; Y < qtdLinhas - 1; Y++) //Começa em 1 e termina em qtdLinhas - 1 pois o primeiro e o ultimo ja foram verificados
-				if(labirinto[qtdColunas - 1][Y] == 'E')
+			else if(!achou)
+			for(Yi = 1; Yi < qtdLinhas - 1; Yi++) //Começa em 1 e termina em qtdLinhas - 1 pois o primeiro e o ultimo ja foram verificados
+				if(labirinto[qtdColunas - 1][Yi] == 'E')
 				{
 					achou = true;
-					atual = new Coordenada(qtdColunas - 1,Y);
+					atual = new Coordenada(qtdColunas - 1,Yi);
 					break;
 				}
 
-			if(!achou)
+			else if(!achou)
 				throw new Exception("Labirinto sem entrada valida!");
 
 			while(!achouSaida /*&& modo != progressivo*/)
 			{
 				Fila<Coordenada> fila = new Fila<Coordenada>(3);
 
-				int X = atual.getX;
-				int Y = atual.getY;
+				int X = atual.getX();
+				int Y = atual.getY();
 
 				if(labirinto[X][Y - 1] == ' ')
 				{
-					fila.guarde(new Coordenada(X , Y - 1));
+					fila.guarde(new Coordenada(X, Y - 1));
 				}
 				if(labirinto[X + 1][Y] == ' ')
 				{
@@ -118,9 +118,9 @@ public class Programa
 					achouSaida = true;
 
 
-				atual = fila.getUmItem;
+				atual = fila.getUmItem();
 
-				labirinto[atual.getX][atual.getY] = '*';
+				labirinto[atual.getX()][atual.getY()] = '*';
 
 				caminho.guarde(atual);
 
