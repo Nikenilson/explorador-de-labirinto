@@ -11,9 +11,14 @@ public class Programa
 		Pilha<Coordenada> caminho;
 		Pilha<Fila<Coordenada>> possibilidades;
 		boolean achouSaida = false;
+		int modo = 1; //Modo de funcionamento do programa, 1 para progressivo, 2 para regressivo
+		//Variaveis para armazenar a Entrada e Saída e printa las no final
+		Coordenada entrada;
+		Coordenada saida = null;
 
 		try
 		{
+			//Leitura do Arquivo
 			Scanner ler = new Scanner(System.in);
 			System.out.printf("Informe o nome de arquivo texto:\n");
     		String nome = ler.nextLine();
@@ -45,11 +50,13 @@ public class Programa
 		        System.err.printf("Erro na abertura do arquivo: %s.\n",
 		          e.getMessage());
 		    }
+		    //Fim da Leitura do ar1uivo
 			int qtdDeCoordenadas = qtdLinhas * qtdColunas;
 
 		    caminho = new Pilha<Coordenada>(qtdDeCoordenadas);
 		    possibilidades = new Pilha<Fila<Coordenada>>(qtdDeCoordenadas);
 
+			//Busca pela entrada 'E' do labirinto ///Adicionar algo mpara tratar mais de uma Entrada
 		    Coordenada atual = null;
 			boolean achou = false;
 			for(int Xi = 0; Xi < qtdColunas; Xi++)
@@ -83,49 +90,76 @@ public class Programa
 					atual = new Coordenada(qtdColunas - 1,Yi);
 					break;
 				}
-
-			else if(!achou)
+				entrada = atual;
+			 if(!achou)
 				throw new Exception("Labirinto sem entrada valida!");
-
-			while(!achouSaida /*&& modo != progressivo*/)
+		//Enquanto não achar a saída, percorre o libirintoi no modo progressivo e regressivo
+		while(!achouSaida)
+		{
+			while(modo == 1)//Modo Progressivo (1)
 			{
 				Fila<Coordenada> fila = new Fila<Coordenada>(3);
 
 				int X = atual.getX();
 				int Y = atual.getY();
 
+				//Verificação dos adjacentes
 				if(labirinto[X][Y - 1] == ' ')
-				{
 					fila.guarde(new Coordenada(X, Y - 1));
-				}
+
 				if(labirinto[X + 1][Y] == ' ')
-				{
 					fila.guarde(new Coordenada(X + 1 , Y));
-				}
+
 				if(labirinto[X][Y + 1] == ' ')
-				{
 					fila.guarde(new Coordenada(X , Y + 1));
-				}
+
 				if(labirinto[X - 1][Y] == ' ')
-				{
 					fila.guarde(new Coordenada(X , Y - 1));
-				}
 
-				if(labirinto[X][Y - 1] == 'S'
-			 	||labirinto[X + 1][Y] == 'S'
-			 	||labirinto[X][Y + 1] == 'S'
-	         	||labirinto[X - 1][Y] == 'S')
+				//Verificação de se a saída foi encontrada
+				if(labirinto[X][Y - 1] == 'S')
+				{
+					saida = new Coordenada(X,Y-1);
 					achouSaida = true;
+				}
+			 	else if(labirinto[X + 1][Y] == 'S')
+			 	{
+					saida = new Coordenada(X+1 , Y);
+					achouSaida = true;
+				}
+			 	else if(labirinto[X][Y + 1] == 'S')
+			 	{
+					saida = new Coordenada(X ,Y+1);
+					achouSaida = true;
+				}
+	         	else if(labirinto[X - 1][Y] == 'S')
+	         	{
+					saida = new Coordenada(X - 1,Y);
+					achouSaida = true;
+				}
+				//Se nenhum adjacente foi encontrado, fila entra em modo regressivo
+				if(fila == null)
+					modo = 2;
 
-
+				//Da um "passo" até um adjacente, e guarda os outros na fila de possibilidades
 				atual = fila.getUmItem();
-
 				labirinto[atual.getX()][atual.getY()] = '*';
-
 				caminho.guarde(atual);
-
 				possibilidades.guarde(fila);
 			}
+
+			while(modo == 2)//Modo Regressivo(2)
+			{
+				//Modo Regressivo
+			}
+
+		}
+
+		System.out.println("Saída Encontrada!O caminho que leva até ela é:");
+		while(!caminho.isVazia())
+			System.out.print(caminho.getUmItem().toString());
+		System.out.println("Entrada: " + entrada.toString());
+		System.out.println("Saída: "+ saida.toString());
 
 
 		}

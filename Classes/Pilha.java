@@ -147,7 +147,7 @@ tiposDosParametrosFormais[0] = parametroReal.getClass();
 Method metodo = classe.getMethod("charAt", tiposDosParametrosFormais);
 Object[] parametrosReais = new Object[1] // 1 pq charAt tem 1 parâmetro
 parametrosReais[0] = parametroReal;
-char chr = ((Character)metodo.invoke(parametrosReais)).charValue; //Retorna um Object
+char chr = ((Character)metodo.invoke(str,parametrosReais)).charValue; //Retorna um Object
 
 ...
 Day portasAbertas = new Day(9, 22, 2018);
@@ -330,7 +330,7 @@ public class Pilha<X> implements Cloneable
 		Class<?>[] tiposDosParametrosFormais = null; //Pois "clone" tem 0 parâmetros
 		Method metodo = classe.getMethod("clone", tiposDosParametrosFormais);
 		Object[] parametrosReais = null; //Pois "clone" tem 0 parâmetros
-		ret = (X)metodo.invoke(parametrosReais);
+		ret = (X)metodo.invoke(x,parametrosReais);
 	}
 	catch (NoSuchMethodException erro)
 	{}
