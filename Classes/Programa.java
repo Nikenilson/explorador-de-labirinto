@@ -1,46 +1,48 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
+import java.io.InputStreamReader;
 public class Programa
 {
 
 	public static void main(String[] args)  throws Exception
 	{
-		char[][] labirinto = null;
-		Pilha<Coordenada> caminho;
-		Pilha<Fila<Coordenada>> possibilidades;
-		boolean achouSaida = false;
-		int modo = 1; //Modo de funcionamento do programa, 1 para progressivo, 2 para regressivo
-		//Variaveis para armazenar a Entrada e Saída e printa las no final
-		Coordenada entrada;
-		Coordenada saida = null;
-
 		try
 		{
+			char[][] labirinto = null;
+			Pilha<Coordenada> caminho;
+			Pilha<Fila<Coordenada>> possibilidades;
+			boolean achouSaida = false;
+			int modo = 1; //Modo de funcionamento do programa, 1 para progressivo, 2 para regressivo e 3 para quando a Saida for encontrada
+			//Variaveis para armazenar a Entrada e Saída e printa las no final
+			Coordenada entrada;
+			Coordenada saida = null;
+
 			//Leitura do Arquivo
-			Scanner ler = new Scanner(System.in);
-			System.out.printf("Informe o nome de arquivo texto:\n");
-    		String nome = ler.nextLine();
+			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in)) ;
+			System.out.println("Digite o nome do arquivo a ser lido e sua extensao .txt: ");
+			String localArquivo = teclado.readLine();
+
     		int qtdLinhas = 0;
     		int qtdColunas = 0;
 			try
 			{
-		    	FileReader arq = new FileReader(nome);
-		      	BufferedReader lerArq = new BufferedReader(arq);
+				FileReader arq = new FileReader(localArquivo);
+            	BufferedReader lerArq = new BufferedReader(arq);
 
-		      	qtdLinhas = Integer.parseInt(lerArq.readLine());
-		      	qtdColunas = Integer.parseInt(lerArq.readLine());
+		      	qtdLinhas = Integer.parseInt(lerArq.readLine().trim());
+		      	qtdColunas = Integer.parseInt(lerArq.readLine().trim());
 
-		      	labirinto = new char[qtdColunas][qtdLinhas];
+		      	labirinto = new char[qtdLinhas][qtdColunas];
 
 			  	String linha;
 
-			  	for(int e = 0; e < qtdColunas; e++)
+			  	for(int e = 0; e < qtdLinhas; e++)
 			  	{
 					linha = lerArq.readLine();
-		      		for(int i = 0; i < qtdLinhas; i++)
-		      		labirinto[i][e] = linha.charAt(i);
+
+		      		for(int i = 0; i < qtdColunas; i++)
+		      		labirinto[e][i] = linha.charAt(i);
 		      	}
 
 		      	arq.close();
@@ -94,53 +96,64 @@ public class Programa
 			 if(!achou)
 				throw new Exception("Labirinto sem entrada valida!");
 		//Enquanto não achar a saída, percorre o libirintoi no modo progressivo e regressivo
+
 		while(!achouSaida)
 		{
 			while(modo == 1)//Modo Progressivo (1)
 			{
 				Fila<Coordenada> fila = new Fila<Coordenada>(3);
 
-				int X = atual.getX();
-				int Y = atual.getY();
+				int x = atual.getX();
+				int y = atual.getY();
 
 				//Verificação dos adjacentes
-				if(labirinto[X][Y - 1] == ' ')
-					fila.guarde(new Coordenada(X, Y - 1));
+				if(y - 1 >= 0 && labirinto[x][y - 1] == ' ')
+					fila.guarde(new Coordenada(x, y - 1));
 
-				if(labirinto[X + 1][Y] == ' ')
-					fila.guarde(new Coordenada(X + 1 , Y));
+				if(x + 1 <= qtdLinhas && labirinto[x + 1][y] == ' ')
+					fila.guarde(new Coordenada(x + 1 , y));
 
-				if(labirinto[X][Y + 1] == ' ')
-					fila.guarde(new Coordenada(X , Y + 1));
+				if(y + 1 >= qtdColunas && labirinto[x][y + 1] == ' ')
+					fila.guarde(new Coordenada(x , y + 1));
 
-				if(labirinto[X - 1][Y] == ' ')
-					fila.guarde(new Coordenada(X , Y - 1));
+				if(x - 1 >= 0 && labirinto[x - 1][y] == ' ')
+					fila.guarde(new Coordenada(x , y - 1));
 
 				//Verificação de se a saída foi encontrada
-				if(labirinto[X][Y - 1] == 'S')
+				if(y - 1 >= 0 && labirinto[x][y - 1] == 'S')
 				{
-					saida = new Coordenada(X,Y-1);
+					saida = new Coordenada(x,y-1);
 					achouSaida = true;
+					modo = 3; //Achou a saida
+					break;
 				}
-			 	else if(labirinto[X + 1][Y] == 'S')
+			 	else if(x + 1 <= qtdLinhas && labirinto[x + 1][y] == 'S')
 			 	{
-					saida = new Coordenada(X+1 , Y);
+					saida = new Coordenada(x+1 , y);
 					achouSaida = true;
+					modo = 3;
+					break;
 				}
-			 	else if(labirinto[X][Y + 1] == 'S')
+			 	else if(y + 1 >= qtdColunas && labirinto[x][y + 1] == 'S')
 			 	{
-					saida = new Coordenada(X ,Y+1);
+					saida = new Coordenada(x ,y+1);
 					achouSaida = true;
+					modo = 3;
+					break;
 				}
-	         	else if(labirinto[X - 1][Y] == 'S')
+	         	else if(x - 1 >= 0 && labirinto[x - 1][y] == 'S')
 	         	{
-					saida = new Coordenada(X - 1,Y);
+					saida = new Coordenada(x - 1,y);
 					achouSaida = true;
+					modo = 3;
+					break;
 				}
 				//Se nenhum adjacente for encontrado, fila entrará em modo regressivo
-				if(fila == null)
+				if(fila.isVazia())
+				{
 					modo = 2;
-
+					break;
+				}
 				//Dá um "passo" até um adjacente, e guarda os outros na fila de possibilidades
 				atual = fila.getUmItem();
 				fila.jogueForaUmItem();
@@ -150,19 +163,30 @@ public class Programa
 				possibilidades.guarde(fila);
 			}
 
+
+System.out.println("God helps who foudaci");
+
+
+
 			while(modo == 2)//Modo Regressivo(2)
 			{
+				System.out.println("God_1");
+
 					Fila<Coordenada> fila = new Fila<Coordenada>(3);
 
 	                atual = caminho.getUmItem();
 	                caminho.jogueForaUmItem();
+
+					System.out.println("God_2");
 	                labirinto[atual.getX()][atual.getY()] = ' ';
 
 	                fila = possibilidades.getUmItem();
 	                possibilidades.jogueForaUmItem();
 
+					System.out.println("God_3");
 	                if(!fila.isVazia())
 	                {//Como deveriamos continuar do passo 7, e o while do modo 1 começa do 6, fizemos uma "semi" repetição do modo progressivo antes de voltarmos realmente para ele
+						System.out.println("entrou no if aee porra");
 						atual = fila.getUmItem();
 						fila.jogueForaUmItem();
 
@@ -188,7 +212,7 @@ public class Programa
 
 
 		catch(Exception e)
-		{}
+		{System.out.println(e.getMessage());}
 
 
 	}
