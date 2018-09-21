@@ -137,11 +137,11 @@ public class Programa
 					saida = new Coordenada(X - 1,Y);
 					achouSaida = true;
 				}
-				//Se nenhum adjacente foi encontrado, fila entra em modo regressivo
+				//Se nenhum adjacente for encontrado, fila entrará em modo regressivo
 				if(fila == null)
 					modo = 2;
 
-				//Da um "passo" até um adjacente, e guarda os outros na fila de possibilidades
+				//Dá um "passo" até um adjacente, e guarda os outros na fila de possibilidades
 				atual = fila.getUmItem();
 				labirinto[atual.getX()][atual.getY()] = '*';
 				caminho.guarde(atual);
@@ -152,11 +152,14 @@ public class Programa
 			{
 	             Fila<Coordenada> fila = new Fila<Coordenada>(3);
 
-
-	             caminho.getUmItem(atual);
-				 labirinto[atual.getX()][atual.getY()] = ' ';
-				 possibilidades.getUmItem(fila);
-
+                 if(fila == null)
+			     {
+	                caminho.getUmItem(atual);
+				    labirinto[atual.getX()][atual.getY()] = ' ';
+				    possibilidades.getUmItem(fila);
+				 }
+				 else
+				 modo = 1;
 
 			}
 
