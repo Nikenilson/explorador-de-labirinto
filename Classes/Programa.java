@@ -152,6 +152,8 @@ public class Programa
 
 			while(modo == 2)//Modo Regressivo(2)
 			{
+					Fila<Coordenada> fila = new Fila<Coordenada>(3);
+
 	                atual = caminho.getUmItem();
 	                caminho.jogueForaUmItem();
 	                labirinto[atual.getX()][atual.getY()] = ' ';
@@ -160,13 +162,13 @@ public class Programa
 	                possibilidades.jogueForaUmItem();
 
 	                if(!fila.isVazia())
-	                {
+	                {//Como deveriamos continuar do passo 7, e o while do modo 1 começa do 6, fizemos uma "semi" repetição do modo progressivo antes de voltarmos realmente para ele
 						atual = fila.getUmItem();
 						fila.jogueForaUmItem();
 
 						labirinto[atual.getX()][atual.getY()] = '*';
 						caminho.guarde(atual);
-						ossibilidades.guarde(fila);
+						possibilidades.guarde(fila);
 
 	                	modo = 1;
 					}
