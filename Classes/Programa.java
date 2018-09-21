@@ -150,21 +150,12 @@ public class Programa
 
 			while(modo == 2)//Modo Regressivo(2)
 			{
-				int X = atual.getX();
-				int Y = atual.getY();
+	             Fila<Coordenada> fila = new Fila<Coordenada>(3);
 
-				//Verificação dos adjacentes para o modo regressivo
-				if(labirinto[X][Y - 1] == '*')
-				fila.guarde(new Coordenada(X, Y - 1));
 
-				if(labirinto[X + 1][Y] == '*')
-				fila.guarde(new Coordenada(X + 1 , Y));
-
-				if(labirinto[X][Y + 1] == '*')
-				fila.guarde(new Coordenada(X , Y + 1));
-
-				if(labirinto[X - 1][Y] == '*')
-			    fila.guarde(new Coordenada(X , Y - 1));
+	             caminho.getUmItem(atual);
+				 labirinto[atual.getX()][atual.getY()] = ' ';
+				 possibilidades.getUmItem(fila);
 
 
 			}
