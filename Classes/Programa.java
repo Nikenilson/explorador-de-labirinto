@@ -143,6 +143,8 @@ public class Programa
 
 				//Dá um "passo" até um adjacente, e guarda os outros na fila de possibilidades
 				atual = fila.getUmItem();
+				fila.jogueForaUmItem();
+
 				labirinto[atual.getX()][atual.getY()] = '*';
 				caminho.guarde(atual);
 				possibilidades.guarde(fila);
@@ -150,18 +152,26 @@ public class Programa
 
 			while(modo == 2)//Modo Regressivo(2)
 			{
-	             Fila<Coordenada> fila = new Fila<Coordenada>(3);
+	                atual = caminho.getUmItem();
+	                caminho.jogueForaUmItem();
+	                labirinto[atual.getX()][atual.getY()] = ' ';
 
-                 if(fila == null)
-			     {
-	                caminho.getUmItem(atual);
-				    labirinto[atual.getX()][atual.getY()] = ' ';
-				    possibilidades.getUmItem(fila);
-				 }
-				 else
-				 modo = 1;
+	                fila = possibilidades.getUmItem();
+	                possibilidades.jogueForaUmItem();
 
+	                if(!fila.isVazia())
+	                {
+						atual = fila.getUmItem();
+						fila.jogueForaUmItem();
+
+						labirinto[atual.getX()][atual.getY()] = '*';
+						caminho.guarde(atual);
+						ossibilidades.guarde(fila);
+
+	                	modo = 1;
+					}
 			}
+
 
 		}
 
