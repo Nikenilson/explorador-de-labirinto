@@ -50,7 +50,7 @@ public class Programa
 		        System.err.printf("Erro na abertura do arquivo: %s.\n",
 		          e.getMessage());
 		    }
-		    //Fim da Leitura do ar1uivo
+		    //Fim da Leitura do arquivo
 			int qtdDeCoordenadas = qtdLinhas * qtdColunas;
 
 		    caminho = new Pilha<Coordenada>(qtdDeCoordenadas);
@@ -150,7 +150,23 @@ public class Programa
 
 			while(modo == 2)//Modo Regressivo(2)
 			{
-				//Modo Regressivo
+				int X = atual.getX();
+				int Y = atual.getY();
+
+				//Verificação dos adjacentes para o modo regressivo
+				if(labirinto[X][Y - 1] == '*')
+				fila.guarde(new Coordenada(X, Y - 1));
+
+				if(labirinto[X + 1][Y] == '*')
+				fila.guarde(new Coordenada(X + 1 , Y));
+
+				if(labirinto[X][Y + 1] == '*')
+				fila.guarde(new Coordenada(X , Y + 1));
+
+				if(labirinto[X - 1][Y] == '*')
+			    fila.guarde(new Coordenada(X , Y - 1));
+
+
 			}
 
 		}
