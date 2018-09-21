@@ -3,13 +3,13 @@ public class Coordenada
 	private int x;
 	private int y;
 
-	public Coordenada(int X, int Y) throws Exception
+	public Coordenada(int xis, int ipsilon) throws Exception
 	{
-		if(X < 0 || Y < 0)
+		if(xis < 0 || ipsilon < 0)
 			throw new Exception("Coordenadas invalidas");
 
-		this.x = X;
-		this.y = Y;
+		this.x = xis;
+		this.y = ipsilon;
 	}
 
 	public int getX()
@@ -48,7 +48,7 @@ public class Coordenada
 	{
 		String oX = (x<10?"0"+x: x + "");
 		String oY = (y<10?"0"+y: y + "");
-		return "("+ oX +"," + this.y + ")";
+		return "("+ oX +"," + oY + ")";
 	}
 
 	public int hashCode()
