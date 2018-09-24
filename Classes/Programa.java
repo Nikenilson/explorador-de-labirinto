@@ -142,15 +142,15 @@ public class Programa
 
 					labirinto[atual.getX()][atual.getY()] = ' ';
 
-					Fila<Coordenada> filaRegressiva = possibilidades.getUmItem();
+					fila = possibilidades.getUmItem();
 					possibilidades.jogueForaUmItem();
 
-					if(!filaRegressiva.isVazia())
+					if(!fila.isVazia())
 					{
-						atual = filaRegressiva.getUmItem();
+						atual = fila.getUmItem();
 
 						caminho.guarde(atual);
-						possibilidades.guarde(filaRegressiva);
+						possibilidades.guarde(fila);
 						labirinto[atual.getX()][atual.getY()] = '*';
 						regressivo = false;
 					}
