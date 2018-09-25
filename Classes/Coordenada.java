@@ -3,6 +3,9 @@
 A classe Coordenada define uma classe para, especificamente, administrar as posições X (eixo horizontal)
 e Y (eixo vertical) atuais de nosso objeto explorador de labirintos. Ela conta com variáveis inteiras para
 se referir a cada eixo e métodos getters para trabalhar com os valores sem corrompê-los (sem contar os métodos obrigatórios).
+
+@author Samuel Gomes de Lima Dias e Victor Botin Avelino
+@since 2018
 */
 
 public class Coordenada

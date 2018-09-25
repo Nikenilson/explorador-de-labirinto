@@ -8,6 +8,9 @@ Esta é nossa classe Programa do explorador de labirintos. Ela contém toda a codi
 e interações entre as classes Coordenada, Fila e Pilha necessárias ao funcionamento do aplicativo. Conforme fizemos
 a codificação do projeto, nós nos pusemos a escrever os passos mais relevantes (exemplo: significado das variáveis
 e o funcionamento dos modos progressivo e regressivo).
+
+@author Samuel Gomes de Lima Dias e Victor Botin Avelino
+@since 2018
 */
 
 public class Programa

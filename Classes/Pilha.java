@@ -164,6 +164,9 @@ import java.lang.reflect.*;
 A classe Pilha<X> se define por ser uma classe genérica de Pilha (assim como ocorre para a classe genérica de Fila), ou seja, uma classe de armazenamento
 em pilha ("Last in, First Out") que pode receber qualquer valor, pois está adaptada para isso. Ela conta com métodos getters para que trabalhemos sem deturpar
 as variáveis originais, métodos de entrada e saída de dados da Fila e métodos boolean para checagem de capacidade (sem contar os métodos obrigatórios).
+
+@author Samuel Gomes de Lima Dias e Victor Botin Avelino
+@since 2018
 */
 
 
