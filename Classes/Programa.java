@@ -2,6 +2,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+/*
+Esta é nossa classe Programa do explorador de labirintos. Ela contém toda a codificação de variáveis, métodos
+e interações entre as classes Coordenada, Fila e Pilha necessárias ao funcionamento do aplicativo. Conforme fizemos
+a codificação do projeto, nós nos pusemos a escrever os passos mais relevantes (exemplo: significado das variáveis
+e o funcionamento dos modos progressivo e regressivo).
+*/
+
 public class Programa
 {
 
@@ -13,7 +21,7 @@ public class Programa
 			Pilha<Coordenada> caminho;
 			Pilha<Fila<Coordenada>> possibilidades;
 			boolean achouSaida = false;
-			//Variaveis para armazenar a Entrada e Saída e printa las no final
+			//Variáveis para armazenar a Entrada e Saída e printá-las ao final de toda a resolução.
 			Coordenada entrada = null;
 			Coordenada saida = null;
 
@@ -45,13 +53,13 @@ public class Programa
 
 		    arq.close();
 
-		    //Fim da Leitura do arquivo
+		    //Fim da Leitura do arquivo.
 			int qtdDeCoordenadas = qtdLinhas * qtdColunas;
 
 		    caminho = new Pilha<Coordenada>(qtdDeCoordenadas);
 		    possibilidades = new Pilha<Fila<Coordenada>>(qtdDeCoordenadas);
 
-			//Busca pela entrada 'E' do labirinto ///Adicionar algo mpara tratar mais de uma Entrada
+			//Busca pela entrada 'E' do labirinto ///Adicionar algo para tratar mais de uma Entrada
 		    Coordenada atual = null;
 			boolean achou = false;
 
@@ -66,6 +74,13 @@ public class Programa
 						}
 			if(atual == null)
 				throw new Exception("Labirinto sem entrada");
+
+
+
+
+
+
+
 
 			/*for(int coluna = 0; coluna < qtdColunas; coluna++)
 		    	if(labirinto != null || labirinto[0][coluna] == 'E')
@@ -107,7 +122,11 @@ public class Programa
 				throw new Exception("Labirinto sem entrada valida!");
 				*/
 
-		//Enquanto não achar a saída, percorre o labirinto no modo progressivo e regressivo
+
+
+
+
+		//Enquanto não encontrar a saída, percorrerá o labirinto nos modos progressivo e regressivo.
 		while(!achouSaida)
 		{
 			Fila<Coordenada> fila = new Fila<Coordenada>(3);
@@ -115,7 +134,7 @@ public class Programa
 			int x = atual.getX();
 			int y = atual.getY();
 
-			//Verificação dos adjacentes
+			//Verificação dos adjacentes.
 			if(y - 1 >= 0)
 				if(labirinto[x][y - 1] == ' ' || labirinto[x][y - 1] == 'S')
 					fila.guarde(new Coordenada(x, y - 1));
@@ -131,7 +150,7 @@ public class Programa
 				if(labirinto[x - 1][y] == ' ' || labirinto[x - 1][y]== 'S')
 					fila.guarde(new Coordenada(x - 1 , y));
 
-			//Se nenhum adjacente for encontrado, fila entrará em modo regressivo
+			//Se nenhum adjacente for encontrado, fila entrará em modo regressivo.
 			if(fila.isVazia())
 			{
 				boolean regressivo = true;
@@ -141,6 +160,7 @@ public class Programa
 					caminho.jogueForaUmItem();
 
 					labirinto[atual.getX()][atual.getY()] = ' ';
+					//Isto simboliza a volta do explorador, ou seja, é como se ele estivesse recolhendo o que deixou para sinalizar por onde já passou.
 
 					fila = possibilidades.getUmItem();
 					possibilidades.jogueForaUmItem();
@@ -159,13 +179,13 @@ public class Programa
 				}
 
 			}
-			else //Modo Progressivo
+			else //Modo Progressivo.
 			{
-				//Dá um "passo" até um adjacente, e guarda os outros na fila de possibilidades
+				//Dá um "passo" até um adjacente e guarda os outros na fila de possibilidades.
 				atual = fila.getUmItem();
 				fila.jogueForaUmItem();
 
-				//Verificacao da saida
+				//Verificação da saida.
 				int xS = atual.getX();
 				int yS = atual.getY();
 				if(labirinto[xS][yS] == 'S')
@@ -175,7 +195,7 @@ public class Programa
 					break;
 				}
 
-				labirinto[atual.getX()][atual.getY()] = '*';
+				labirinto[atual.getX()][atual.getY()] = '*'; //Sinalização de que já passamos por ali.
 				caminho.guarde(atual);
 				possibilidades.guarde(fila);
 

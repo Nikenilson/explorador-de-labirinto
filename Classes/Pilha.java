@@ -158,10 +158,20 @@ Dia 22/09/2018
 
 */
 import java.lang.reflect.*;
+
+
+/*
+A classe Pilha<X> se define por ser uma classe genérica de Pilha (assim como ocorre para a classe genérica de Fila), ou seja, uma classe de armazenamento
+em pilha ("Last in, First Out") que pode receber qualquer valor, pois está adaptada para isso. Ela conta com métodos getters para que trabalhemos sem deturpar
+as variáveis originais, métodos de entrada e saída de dados da Fila e métodos boolean para checagem de capacidade (sem contar os métodos obrigatórios).
+*/
+
+
+
 public class Pilha<X> implements Cloneable
 {
-    private Object[] vetor;
-    private int qtd = 0;
+    protected Object[] vetor;
+    protected int qtd = 0;
 
 
     //versao preventiva
@@ -319,11 +329,11 @@ public class Pilha<X> implements Cloneable
 			//this.vetor[i] = modelo.vetor[i].clone();      //teriamos que clonar tambem o que guardamos
 	}
 
-	private X meuCloneDeX (X x)
+	protected X meuCloneDeX (X x)
 	{
 		X ret = null;
 		//agora o que quero fazer de um Jeito Demoniaco é
-		//retuen x.clone();
+		//return x.clone();
 	try
 	{
 		Class<?> classe = x.getClass();

@@ -1,11 +1,18 @@
 import java.lang.reflect.*;
 
+/*
+A classe Fila<X> se define por ser uma classe genérica de Fila, ou seja, uma classe de armazenamento em fila ("First In, First Out)
+que pode receber qualquer valor, pois está adaptada para isso. Ela conta com métodos getters para que trabalhemos sem deturpar as
+variáveis originais, métodos de entrada e saída de dados da Fila e métodos boolean para checagem de capacidade (sem contar os métodos
+obrigatórios).
+*/
+
 public class Fila<X> implements Cloneable
 {
-	    private Object[] vetor;  //private String[] vetor --> ainda não tem tamanho
-	    private int qtd = 0;
-	    private int inicio = 0;
-	    private int fim = 0;
+	    protected Object[] vetor;  //private String[] vetor --> ainda não tem tamanho
+	    protected int qtd = 0;
+	    protected int inicio = 0;
+	    protected int fim = 0;
 
 	    public Fila(int capacidade) throws Exception
 	    {
@@ -15,7 +22,7 @@ public class Fila<X> implements Cloneable
 			this.vetor = new Object[capacidade];
 		}
 
-		private X meuCloneDeX(X x)
+		protected X meuCloneDeX(X x)
 		{
 			X ret = null;
 			try

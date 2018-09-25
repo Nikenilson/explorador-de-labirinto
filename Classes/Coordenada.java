@@ -1,7 +1,14 @@
+
+/*
+A classe Coordenada define uma classe para, especificamente, administrar as posições X (eixo horizontal)
+e Y (eixo vertical) atuais de nosso objeto explorador de labirintos. Ela conta com variáveis inteiras para
+se referir a cada eixo e métodos getters para trabalhar com os valores sem corrompê-los (sem contar os métodos obrigatórios).
+*/
+
 public class Coordenada
 {
-	private int x;
-	private int y;
+	protected int x;
+	protected int y;
 
 	public Coordenada(int xis, int ipsilon) throws Exception
 	{
