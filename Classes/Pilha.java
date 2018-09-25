@@ -1,172 +1,13 @@
-/*
-Convenções de Nomenclatura
-
-1) Pacotes (biblioteca)
-   Tem seus nomes escritos totalmente com
-   letras minusculas e as palavras sao
-   separadas por . (ponto)
-
-2) Classes e Projetos
-   Palavras justapostas com iniciais
-   maiúsculas e as demais letras
-   minúsculas
-
-3) Atributos, variaveis locais, parametros e métodos
-   Segue a regra 2 com a seguinte adaptacao:
-   a primeira palavra que forma o nome será
-   totalmente minuscula
-
-4) Constantes (final float PI=3.14f;)
-   Tem seus nomes escritos totalmente com
-   letras maiusculas e as palavras sao
-   separadas por _ (underline)
-
-Obs: palavras reservadas pela linguagem e
-     tipos escalares sao totalmente minusculos
-*/
-
-/*
-TIPOS ESCALARES		CLASSES WRAPPER
-byte			Byte
-short			Short
-int			Integer
-long			Long
-
-float			Float
-double			Double
-
-char			Character
-
-boolean			Boolean
-
-			Ex.:
-			public class Programa
-			{
-			    public static void main (String[] args)
-			    {
-			        int a, b=7, c=13;
-
-			        a = (b+c)/2;
-
-				System.out.println ("A media de "+b+" e "+c+" vale "+a);
-			    }
-			}
-
-			public class Programa
-			{
-			    public static void main (String[] args)
-			    {
-			        Integer a, b=new Integer (7), c=new Integer (13);
-
-			        a = new Integer ((b.intValue()+c.intValue())/2);
-
-				System.out.println ("A media de "+b.intValue()+" e "+c.intValue()+" vale "+a.intValue());
-			    }
-			}
-
-			public class Programa
-			{
-			    public static void main (String[] args)
-			    {
-			        Integer a, b=7, c=13;
-
-			        a = (b+c)/2;
-
-				System.out.println ("A media de "+b+" e "+c+" vale "+a);
-			    }
-			}
-
-			public class Programa
-			{
-			    public static void main (String[] args)
-			    {
-			        String a, b=new String("COTUCA"), c=new String("UNICAMP");
-
-			        a = b.concat(new String("/").concat(c));
-
-				System.out.println (a.toString());
-			    }
-			}
-
-			public class Programa
-			{
-			    public static void main (String[] args)
-			    {
-			        String a, b="COTUCA", c="UNICAMP"; // proprio de wrapper, mas nao é wrapper
-
-			        a = b+"/"+c; // proprio de wrapper, mas nao é wrapper
-
-				System.out.println (a); // proprio de wrapper, mas nao é wrapper
-			    }
-			}
-
-			public class Programa
-			{
-			    public static void main (String[] args)
-			    {
-			        int i=13;
-
-			        String s=""+i; // truque para tranformar em String; estou aplicando a um int, mas poderia ser aplicado a qualquer coisa, objetos ou escalares
-
-			        ...
-			    }
-			}
-
-			public class Programa
-			{
-			    public static void main (String[] args)
-			    {
-			        String s="3.14";
-
-				float piEscalar=Float.parseFloat(s); // nao tem truque; só mesmo usando um método
-                                Float piObjeto =new Float (s);
-
-			        ...
-			    }
-			}
-
-*/
-
-
-/*
-...
-String str = "COTUCA";
-char   chr = str.chatAt(2);
-...
-//o codigo acima é bem simples; suponham agora
-// que queiramos SOFRER... o que fazer? como tornar
-// DEMONIACO o codigo acima?
-...
-
-String str = "COTUCA";
-
-Class<?> classe = str.getClass();
-Integer parametroReal = 2; //2 porque quero usar o "2" como parâmetro do charAt
-Class<?>[] tiposDosParametrosFormais = new Class<?>[1]; //1 Pois "charAt" tem 1 parâmetro
-tiposDosParametrosFormais[0] = parametroReal.getClass();
-Method metodo = classe.getMethod("charAt", tiposDosParametrosFormais);
-Object[] parametrosReais = new Object[1] // 1 pq charAt tem 1 parâmetro
-parametrosReais[0] = parametroReal;
-char chr = ((Character)metodo.invoke(str,parametrosReais)).charValue; //Retorna um Object
-
-...
-Day portasAbertas = new Day(9, 22, 2018);
-
-Dia 22/09/2018
-
-...
-
-*/
 import java.lang.reflect.*;
 
 
-/*
-A classe Pilha<X> se define por ser uma classe genérica de Pilha (assim como ocorre para a classe genérica de Fila), ou seja, uma classe de armazenamento
-em pilha ("Last in, First Out") que pode receber qualquer valor, pois está adaptada para isso. Ela conta com métodos getters para que trabalhemos sem deturpar
-as variáveis originais, métodos de entrada e saída de dados da Fila e métodos boolean para checagem de capacidade (sem contar os métodos obrigatórios).
-
-@author Samuel Gomes de Lima Dias e Victor Botin Avelino
-@since 2018
+/**
+* A classe Pilha<X> se define por ser uma classe genérica de Pilha (assim como ocorre para a classe genérica de Fila), ou seja, uma classe de armazenamento
+* em pilha ("Last in, First Out") que pode receber qualquer valor, pois está adaptada para isso. Ela conta com métodos getters para que trabalhemos sem deturpar
+* as variáveis originais, métodos de entrada e saída de dados da Fila e métodos boolean para checagem de capacidade (sem contar os métodos obrigatórios).
+*
+* @author Samuel Gomes de Lima Dias e Victor Botin Avelino
+* @since 2018
 */
 
 
@@ -177,7 +18,15 @@ public class Pilha<X> implements Cloneable
     protected int qtd = 0;
 
 
-    //versao preventiva
+/**
+ * Este é o construtor da classe Pilha. Ele recebe, como parâmetro, a variável inteira que define
+ * a capacidade e, a partir disso, cria uma pilha de tal capacidade. Se a capacidade for inferior
+ * a 0, o que não é permitido a uma pilha, lançaremos uma excessão.
+ *
+ * @param int capacidade
+ * @throws Exception "Capacidade inválida"
+ */
+
     public Pilha (int capacidade) throws Exception
     {
 
@@ -187,20 +36,16 @@ public class Pilha<X> implements Cloneable
         this.vetor = new Object [capacidade];
     }
 
-    //versao remediadora
-    /*
-    public Pilha (int capacidade) throws Exception
-    {
-        try
-        {
-            this.vetor = new String [capacidade];
-        }
-        catch (NegativeArraySizeException erro)
-        {
-            throw new Exception ("Capacidade invalida");
-        }
-    }
-    */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método guarde recebe, como parâmetro, um item do tipo escolhido pelo usuário da classe para a pilha.
+* O item entrará na última posição. O método lança excessões para caso o parâmetro seja null e para caso
+* a pilha já esteja cheia.
+*
+* @param X x
+* @throws Exception "Informação ausente", "Pilha cheia"
+*/
 
     public void guarde (X x) throws Exception
     {
@@ -220,6 +65,15 @@ public class Pilha<X> implements Cloneable
     //this.vetor[this.qtd] = new X(x); Não podemos usar "new X"
     }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método getUmItem tem, como objetivo, retirar um dado da primeira posição da pilha.
+* O método lança excessões para caso a pilha esteja vazia.
+*
+* @throws Exception "Nada a recuperar"
+*/
+
     public X getUmItem () throws Exception
     {
         if (this.isVazia())
@@ -234,6 +88,15 @@ public class Pilha<X> implements Cloneable
        //return  new X(this.vetor[this.qtd-1]); Não podemos usar "new X"
     }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método jogueForaUmItem é o método que elimina um dado da pilha.
+* O método lança excessões para caso a pilha esteja vazia.
+*
+* @throws Exception "Pilha vazia"
+*/
+
     public void jogueForaUmItem () throws Exception
     {
 	if (this.isVazia())
@@ -246,15 +109,40 @@ public class Pilha<X> implements Cloneable
         this.vetor[this.qtd]=null;
     }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método isCheia é um boolean que nos mostra quando a pilha está cheia ou não,
+* ou seja, quando seu número de dados é semelhante ao da capacidade.
+*/
+
+
     public boolean isCheia ()
     {
         return this.qtd==this.vetor.length;
     }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método isVazia é um outro boolean. Ele nos mostra quando a pilha está vazia, isto é,
+* quando sua quantidade de dados é 0.
+*/
+
     public boolean isVazia ()
     {
         return this.qtd==0;
     }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método toString nos traz quantos elementos temos na pilha e qual é o atual último deles.
+* Ele é um dos métodos obrigatórios em Java.
+*/
 
     public String toString ()
     {
@@ -264,7 +152,16 @@ public class Pilha<X> implements Cloneable
 		return this.qtd+" elementos, sendo o ultimo "+this.vetor[this.qtd-1];
 	}
 
-	//compara this e obj
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método equals é o responsável por comparar um elemento de pilha a um objeto de parâmetro
+* Ele é um dos métodos obrigatórios em Java.
+*
+* @param Object obj
+*/
+
 	public boolean equals (Object obj)
 	{
 		if (this==obj)
@@ -288,6 +185,13 @@ public class Pilha<X> implements Cloneable
 		return true;
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método hashCode demonstra o código hash de cada elemento da pilha por meio de multiplicações e somas com outros números.
+* Ele é um dos métodos obrigatórios em Java.
+*/
+
 	public int hashCode()
 	{
 		int ret = 666; //só não pode ser 0
@@ -305,6 +209,13 @@ public class Pilha<X> implements Cloneable
 		return ret;
 	}
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método clone é o método duplicador de objetos legítimos de Java.
+* Ele é um dos métodos obrigatórios em Java.
+*/
+
 	public Object clone()
 	{
 		Pilha<X> ret = null;
@@ -312,11 +223,22 @@ public class Pilha<X> implements Cloneable
 		{
 			ret = new Pilha<X>(this);
 		}
-		catch(Exception erro)//Catch vazio em geral é porquise das grandes, mas nesse caso nos sabemos que não vai ter erro, pois "this" nunca pode ser nulo
+		catch(Exception erro)//Catch vazio em geral é porquice das grandes, mas nesse caso nos sabemos que não vai ter erro, pois "this" nunca pode ser nulo
 		{}
 
 		return ret;
 	}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O construtor de cópia é como um clone, mas para aquilo que pertence à própria pilha.
+* O propósito é evitar corrompimento de dados.
+*
+* @param Pilha modelo
+* @throws Exception "Modelo ausente"
+*/
 
 	public Pilha (Pilha modelo) throws Exception
 	{
@@ -331,6 +253,16 @@ public class Pilha<X> implements Cloneable
 			this.vetor[i] = modelo.vetor[i]; //Devemos usar esse pois ele é mais economico e a classe Pilha não consegue alterar o que ela guarda
 			//this.vetor[i] = modelo.vetor[i].clone();      //teriamos que clonar tambem o que guardamos
 	}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método cloneDeX define um clone do tipo X escolhido pelo usuário.
+* Seu parâmetro para funcionalidade é o x.
+*
+* @param X x
+*/
 
 	protected X meuCloneDeX (X x)
 	{
