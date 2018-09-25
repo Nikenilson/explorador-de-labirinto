@@ -34,7 +34,7 @@ public class Fila<X> implements Cloneable
 				Class<?>[] tiposDeParametrosFormais = null;
 				Method metodo = classe.getMethod("clone", tiposDeParametrosFormais);
 				Object[] tiposDeParametrosReais = null;
-				ret = (X)metodo.invoke(tiposDeParametrosReais);
+				ret = (X)metodo.invoke(x,tiposDeParametrosReais);
 			}
 			catch(NoSuchMethodException erro)
 			{}
@@ -86,7 +86,6 @@ public class Fila<X> implements Cloneable
 
 	        if(this.vetor[this.inicio] instanceof Cloneable)
 	        	return meuCloneDeX((X)this.vetor[this.inicio]);
-
 	        return (X)this.vetor[this.inicio];
 	    }
 

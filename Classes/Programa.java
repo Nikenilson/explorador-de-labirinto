@@ -127,16 +127,19 @@ public class Programa
 
 
 
-
-
+		boolean entrouReg = false;
+		Fila<Coordenada> fila = null;
 		//Enquanto não encontrar a saída, percorrerá o labirinto nos modos progressivo e regressivo.
 		while(!achouSaida)
 		{
-			Fila<Coordenada> fila = new Fila<Coordenada>(3);
+			if (!entrouReg)
+			{
+			fila = new Fila<Coordenada>(3);
 
 			int x = atual.getX();
 			int y = atual.getY();
 
+			System.out.println("Deuses são reais se voce acredita neles, Antes do adjacente");
 			//Verificação dos adjacentes.
 			if(y - 1 >= 0)
 				if(labirinto[x][y - 1] == ' ' || labirinto[x][y - 1] == 'S')
@@ -153,12 +156,21 @@ public class Programa
 				if(labirinto[x - 1][y] == ' ' || labirinto[x - 1][y]== 'S')
 					fila.guarde(new Coordenada(x - 1 , y));
 
+			System.out.println("Deuses são reais se voce acredita neles, depois do adjacente");
+			}
+			else
+			{
+				System.out.println("saiu aqui");
+				entrouReg = false;
+			}
+
 			//Se nenhum adjacente for encontrado, o programa entra em modo regressivo.
 			if(fila.isVazia())
 			{
 				boolean regressivo = true;
 				while(regressivo)//Modo Regressivo(2)
 				{
+					System.out.println("entrou aqui");
 					atual = caminho.getUmItem();
 					caminho.jogueForaUmItem();
 
@@ -169,14 +181,17 @@ public class Programa
 					possibilidades.jogueForaUmItem();
 
 					if(!fila.isVazia())
-					{
-						atual = fila.getUmItem();
+					{/*
+						atual = (Coordenada) fila.getUmItem();
 						fila.jogueForaUmItem();
 
+						System.out.println("Deuses são reais se voce acredita neles, MATHEUS");
 						caminho.guarde(atual);
+						System.out.println("Deuses são reais se voce acredita neles, MATEUS");
 						possibilidades.guarde(fila);
+						System.out.println("Deuses são reais se voce acredita neles, SCHERER");
 						labirinto[atual.getX()][atual.getY()] = '*';
-						regressivo = false;
+
 
 						for(int linhaP = 0; linhaP < qtdLinhas;linhaP++)
 						{
@@ -184,33 +199,38 @@ public class Programa
 							for(int colunaP = 0; colunaP < qtdColunas;colunaP++)
 								System.out.print(labirinto[linhaP][colunaP]);
 						}
-						System.out.println();
-
+						System.out.println();*/
+						regressivo = false;
+						entrouReg = true;
 					}
 					else if(possibilidades.isVazia())
 								throw new Exception("Não existe saída");
-				}
+					}
 
 			}
-			else //Modo Progressivo.
+			else//Modo Progressivo.
 			{
 				//Dá um "passo" até um adjacente e guarda os outros na fila de possibilidades.
-				atual = fila.getUmItem();
+				atual = (Coordenada)fila.getUmItem();
 				fila.jogueForaUmItem();
 
 				//Verificação da saida.
 				int xS = atual.getX();
 				int yS = atual.getY();
+				System.out.println("atual.getx");
 				if(labirinto[xS][yS] == 'S')
 				{
 					saida = new Coordenada(xS,yS);
 					achouSaida = true;
 					break;
 				}
-
+				else
+				{
 				labirinto[atual.getX()][atual.getY()] = '*'; //Sinalização de que já passamos por ali.
+				System.out.println("Deuses são reais se voce acredita neles, PEDRÃO");
 				caminho.guarde(atual);
 				possibilidades.guarde(fila);
+				System.out.println("Deuses são reais se voce acredita neles, VITÃO");
 
 				for(int linhaP = 0; linhaP < qtdLinhas;linhaP++)
 				{
@@ -220,6 +240,7 @@ public class Programa
 
 				}
 				System.out.println();
+				}
 
 			}
 		}
@@ -227,6 +248,7 @@ public class Programa
 
 		System.out.println("Saída Encontrada!O caminho que leva até ela é:");
 		Pilha<Coordenada> inverso = new Pilha<Coordenada>(qtdDeCoordenadas);
+		System.out.println("Deuses são reais se voce acredita neles");
 		while(!caminho.isVazia())
 		{
 			inverso.guarde(caminho.getUmItem());
