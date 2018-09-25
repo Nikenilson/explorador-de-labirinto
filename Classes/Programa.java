@@ -153,7 +153,7 @@ public class Programa
 				if(labirinto[x - 1][y] == ' ' || labirinto[x - 1][y]== 'S')
 					fila.guarde(new Coordenada(x - 1 , y));
 
-			//Se nenhum adjacente for encontrado, fila entrará em modo regressivo.
+			//Se nenhum adjacente for encontrado, o programa entra em modo regressivo.
 			if(fila.isVazia())
 			{
 				boolean regressivo = true;
@@ -171,11 +171,21 @@ public class Programa
 					if(!fila.isVazia())
 					{
 						atual = fila.getUmItem();
+						fila.jogueForaUmItem();
 
 						caminho.guarde(atual);
 						possibilidades.guarde(fila);
 						labirinto[atual.getX()][atual.getY()] = '*';
 						regressivo = false;
+
+						for(int linhaP = 0; linhaP < qtdLinhas;linhaP++)
+						{
+							System.out.println();
+							for(int colunaP = 0; colunaP < qtdColunas;colunaP++)
+								System.out.print(labirinto[linhaP][colunaP]);
+						}
+						System.out.println();
+
 					}
 					else if(possibilidades.isVazia())
 								throw new Exception("Não existe saída");
@@ -201,6 +211,15 @@ public class Programa
 				labirinto[atual.getX()][atual.getY()] = '*'; //Sinalização de que já passamos por ali.
 				caminho.guarde(atual);
 				possibilidades.guarde(fila);
+
+				for(int linhaP = 0; linhaP < qtdLinhas;linhaP++)
+				{
+					System.out.println();
+					for(int colunaP = 0; colunaP < qtdColunas;colunaP++)
+						System.out.print(labirinto[linhaP][colunaP]);
+
+				}
+				System.out.println();
 
 			}
 		}
