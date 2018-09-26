@@ -210,14 +210,17 @@ public class Programa
 			}
 			else//Modo Progressivo.
 			{
+				System.out.println("Sua mãe é real se vc acredita nela");
 				//Dá um "passo" até um adjacente e guarda os outros na fila de possibilidades.
-				atual = (Coordenada)fila.getUmItem();
+				atual = fila.getUmItem();
 				fila.jogueForaUmItem();
+				System.out.println("Seu atual é real se vc acredita nele");
 
 				//Verificação da saida.
 				int xS = atual.getX();
+				System.out.println("getX");
 				int yS = atual.getY();
-				System.out.println("atual.getx");
+				System.out.println("atual.getY");
 				if(labirinto[xS][yS] == 'S')
 				{
 					saida = new Coordenada(xS,yS);
@@ -267,7 +270,7 @@ public class Programa
 
 		catch(Exception e)
 		{
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage() + e.toString());
 		}
 
 
