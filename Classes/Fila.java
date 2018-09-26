@@ -63,7 +63,7 @@ public class Fila<X> implements Cloneable
 				}
 				//this.vetor[this.qtd] = (Horario)s.clone();
 				else
-					this.vetor[this.fim++] = meuCloneDeX(s);
+					this.vetor[this.fim++] = s;
 			}
 			else
 			{
@@ -179,7 +179,7 @@ public class Fila<X> implements Cloneable
 
 			this.vetor = new Object[modelo.vetor.length];
 
-			for(int i=0; i<modelo.vetor.length-1; i++)
+			for(int i=0; i<modelo.vetor.length; i++)
 		    	this.vetor[i] = modelo.vetor[i];
 		}
 

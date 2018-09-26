@@ -79,12 +79,6 @@ public class Programa
 				throw new Exception("Labirinto sem entrada");
 
 
-
-
-
-
-
-
 			/*for(int coluna = 0; coluna < qtdColunas; coluna++)
 		    	if(labirinto != null || labirinto[0][coluna] == 'E')
 		    	{
@@ -160,7 +154,6 @@ public class Programa
 			}
 			else
 			{
-				System.out.println("saiu aqui");
 				entrouReg = false;
 			}
 
@@ -181,40 +174,23 @@ public class Programa
 					possibilidades.jogueForaUmItem();
 
 					if(!fila.isVazia())
-					{/*
-						atual = (Coordenada) fila.getUmItem();
-						fila.jogueForaUmItem();
-
-						System.out.println("Deuses são reais se voce acredita neles, MATHEUS");
-						caminho.guarde(atual);
-						System.out.println("Deuses são reais se voce acredita neles, MATEUS");
-						possibilidades.guarde(fila);
-						System.out.println("Deuses são reais se voce acredita neles, SCHERER");
-						labirinto[atual.getX()][atual.getY()] = '*';
-
-
-						for(int linhaP = 0; linhaP < qtdLinhas;linhaP++)
-						{
-							System.out.println();
-							for(int colunaP = 0; colunaP < qtdColunas;colunaP++)
-								System.out.print(labirinto[linhaP][colunaP]);
-						}
-						System.out.println();*/
+					{
 						regressivo = false;
 						entrouReg = true;
 					}
 					else if(possibilidades.isVazia())
-								throw new Exception("Não existe saída");
+								throw new Exception("Não existe um caminho para a saída");
 					}
 
 			}
 			else//Modo Progressivo.
 			{
-				System.out.println("Sua mãe é real se vc acredita nela");
+				System.out.println(atual + "Sua mãe é real se vc acredita nela");
 				//Dá um "passo" até um adjacente e guarda os outros na fila de possibilidades.
 				atual = fila.getUmItem();
+				System.out.println(fila.getUmItem() + "Sua fila é real se vc acredita nela");
 				fila.jogueForaUmItem();
-				System.out.println("Seu atual é real se vc acredita nele");
+				System.out.println(atual + "Seu atual é real se vc acredita nele");
 
 				//Verificação da saida.
 				int xS = atual.getX();
@@ -229,20 +205,18 @@ public class Programa
 				}
 				else
 				{
-				labirinto[atual.getX()][atual.getY()] = '*'; //Sinalização de que já passamos por ali.
-				System.out.println("Deuses são reais se voce acredita neles, PEDRÃO");
-				caminho.guarde(atual);
-				possibilidades.guarde(fila);
-				System.out.println("Deuses são reais se voce acredita neles, VITÃO");
+					labirinto[atual.getX()][atual.getY()] = '*'; //Sinalização de que já passamos por ali.
+					caminho.guarde(atual);
+					possibilidades.guarde(fila);
 
-				for(int linhaP = 0; linhaP < qtdLinhas;linhaP++)
-				{
+					for(int linhaP = 0; linhaP < qtdLinhas;linhaP++)
+					{
+						System.out.println();
+						for(int colunaP = 0; colunaP < qtdColunas;colunaP++)
+							System.out.print(labirinto[linhaP][colunaP]);
+
+					}
 					System.out.println();
-					for(int colunaP = 0; colunaP < qtdColunas;colunaP++)
-						System.out.print(labirinto[linhaP][colunaP]);
-
-				}
-				System.out.println();
 				}
 
 			}
