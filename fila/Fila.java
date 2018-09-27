@@ -184,7 +184,8 @@ public class Fila<X> implements Cloneable
 /**
 * O método isVazia é um outro boolean. Ele nos mostra quando a fila está vazia, isto é,
 * quando sua quantidade de dados é 0.
-	Nos tivemos um problema com o isVazia Original, entao substituimos por essa versao, nao sabemos o que estava acontecendo de errado com o outro, mas comprometia o funcionamento da classe
+	Nos tivemos um problema com o isVazia Original, entao substituimos por essa versão, não sabemos o que estava acontecendo de errado com o outro,
+	mas comprometia o funcionamento da classe, portanto modificamos o método para que ele funcionasse.
 */
 
 	    public boolean isVazia()
