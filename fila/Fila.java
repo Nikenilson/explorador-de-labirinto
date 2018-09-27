@@ -1,3 +1,4 @@
+package fila;
 import java.lang.reflect.*;
 
 /**
@@ -121,7 +122,7 @@ public class Fila<X> implements Cloneable
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
-* O método getUmItem tem, como objetivo, retirar um dado da primeira posição da fila.
+* O método getUmItem tem, como objetivo, resgatar um dado da primeira posição da fila.
 * O método lança excessões para caso a fila esteja vazia.
 *
 * @throws Exception "Nada a recuperar"

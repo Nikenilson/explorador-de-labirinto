@@ -1,3 +1,4 @@
+package pilha;
 import java.lang.reflect.*;
 
 
@@ -68,7 +69,7 @@ public class Pilha<X> implements Cloneable
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
-* O método getUmItem tem, como objetivo, retirar um dado da primeira posição da pilha.
+* O método getUmItem tem, como objetivo, resgatar um dado da primeira posição da pilha.
 * O método lança excessões para caso a pilha esteja vazia.
 *
 * @throws Exception "Nada a recuperar"

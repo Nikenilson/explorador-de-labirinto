@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import fila.*;
+import pilha.*;
+import coordenada.*;
 
 /**
 * Esta é nossa classe Programa do explorador de labirintos. Ela contém toda a codificação de variáveis, métodos
