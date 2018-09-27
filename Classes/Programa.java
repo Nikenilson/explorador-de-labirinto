@@ -133,7 +133,6 @@ public class Programa
 			int x = atual.getX();
 			int y = atual.getY();
 
-			System.out.println("Deuses são reais se voce acredita neles, Antes do adjacente");
 			//Verificação dos adjacentes.
 			if(y - 1 >= 0)
 				if(labirinto[x][y - 1] == ' ' || labirinto[x][y - 1] == 'S')
@@ -150,7 +149,6 @@ public class Programa
 				if(labirinto[x - 1][y] == ' ' || labirinto[x - 1][y]== 'S')
 					fila.guarde(new Coordenada(x - 1 , y));
 
-			System.out.println("Deuses são reais se voce acredita neles, depois do adjacente");
 			}
 			else
 			{
@@ -163,7 +161,6 @@ public class Programa
 				boolean regressivo = true;
 				while(regressivo)//Modo Regressivo(2)
 				{
-					System.out.println("entrou aqui");
 					atual = caminho.getUmItem();
 					caminho.jogueForaUmItem();
 
@@ -185,18 +182,14 @@ public class Programa
 			}
 			else//Modo Progressivo.
 			{
-				System.out.println(atual + "Sua mãe é real se vc acredita nela");
 				//Dá um "passo" até um adjacente e guarda os outros na fila de possibilidades.
-				atual = fila.getUmItem();
-				System.out.println(fila.getUmItem() + "Sua fila é real se vc acredita nela");
+				atual = (Coordenada )fila.getUmItem();
 				fila.jogueForaUmItem();
-				System.out.println(atual + "Seu atual é real se vc acredita nele");
+
 
 				//Verificação da saida.
 				int xS = atual.getX();
-				System.out.println("getX");
 				int yS = atual.getY();
-				System.out.println("atual.getY");
 				if(labirinto[xS][yS] == 'S')
 				{
 					saida = new Coordenada(xS,yS);
@@ -209,33 +202,34 @@ public class Programa
 					caminho.guarde(atual);
 					possibilidades.guarde(fila);
 
-					for(int linhaP = 0; linhaP < qtdLinhas;linhaP++)
-					{
-						System.out.println();
-						for(int colunaP = 0; colunaP < qtdColunas;colunaP++)
-							System.out.print(labirinto[linhaP][colunaP]);
-
-					}
-					System.out.println();
 				}
 
 			}
 		}
 
+		for(int linhaP = 0; linhaP < qtdLinhas;linhaP++)
+		{
+			System.out.println();
+			for(int colunaP = 0; colunaP < qtdColunas;colunaP++)
+				System.out.print(labirinto[linhaP][colunaP]);
+
+		}
+		System.out.println();
 
 		System.out.println("Saída Encontrada!O caminho que leva até ela é:");
 		Pilha<Coordenada> inverso = new Pilha<Coordenada>(qtdDeCoordenadas);
-		System.out.println("Deuses são reais se voce acredita neles");
 		while(!caminho.isVazia())
 		{
 			inverso.guarde(caminho.getUmItem());
 			caminho.jogueForaUmItem();
 		}
+		System.out.print(entrada.toString());
 		while(!inverso.isVazia())
 		{
 			System.out.print(inverso.getUmItem());
 			inverso.jogueForaUmItem();
 		}
+		System.out.print(saida.toString());
 		System.out.println();
 		System.out.println("Entrada: " + entrada.toString());
 		System.out.println("Saída: "+ saida.toString());

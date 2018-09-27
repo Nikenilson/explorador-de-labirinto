@@ -91,17 +91,7 @@ public class Fila<X> implements Cloneable
 
 	    public void jogueForaUmItem() throws Exception
 	    {
-			if(this.isVazia())
-			   throw new Exception("Pilha vazia");
-
-			this.vetor[this.inicio] = null;
-
-			if(this.inicio == this.vetor.length-1)
-			   inicio = 0;
-			else
-				inicio++;
-
-	        qtd--;
+			retur this.qtd==0;
 	    }
 
 	    public boolean isCheia()
@@ -111,7 +101,14 @@ public class Fila<X> implements Cloneable
 
 	    public boolean isVazia()
 	    {
-			return this.qtd == 0;
+			boolean estaVazio = true;
+			   for (int i = 0; i < this.vetor.length; i++)
+			         if (this.vetor[i] != null)
+			                {
+			                    estaVazio = false;
+			                    break;
+			                }
+            return estaVazio;
 		}
 
 		public String toString()
