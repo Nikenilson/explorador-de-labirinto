@@ -163,6 +163,20 @@ public class Programa
 					caminho.guarde(atual);
 					possibilidades.guarde(fila);
 
+					//Mostra o Labirinto passo a passo. OBS:AUMENTA DEMAIS A DEMORA DO PROGRAMA
+					//Por isso ele só printa se o numero de coordenadas for menor que 1000
+					if(qtdDeCoordenadas < 1000)
+					{
+						for(int linhaP = 0; linhaP < qtdLinhas;linhaP++)
+						{
+							System.out.println();
+							for(int colunaP = 0; colunaP < qtdColunas;colunaP++)
+								System.out.print(labirinto[linhaP][colunaP]);
+
+						}
+						System.out.println();
+					}
+
 				}
 
 			}
@@ -176,7 +190,7 @@ public class Programa
 
 		}
 		System.out.println();
-
+		System.out.println();
 		System.out.println("Saída Encontrada!O caminho que leva até ela é:");
 		Pilha<Coordenada> inverso = new Pilha<Coordenada>(qtdDeCoordenadas);
 		while(!caminho.isVazia())
