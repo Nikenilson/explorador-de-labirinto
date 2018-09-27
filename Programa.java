@@ -32,20 +32,16 @@ public class Programa
 			System.out.println("Saída Encontrada!O caminho que leva até ela e o labirinto resolvido foram guardados no arquivo: " + nomeArquivo + ".res.txt" );
 
 			PrintStream resultado = new PrintStream(nomeArquivo.substring(0, nomeArquivo.length() - 4) + ".res.txt"); //O substring no nome do arquivo é pra retirar o.txt do final
+			System.out.println("Deuses sao reais se vc acredita neles");
 			resultado.println(labirinto.toString());
+			System.out.println("Deuses sao reais se vc acredita neles");
 			resultado.close();
 
-			System.out.print(saida.toString());
-			System.out.println();
-			System.out.println("Entrada: " + entrada.toString());
-			System.out.println("Saída: "+ saida.toString());
-			}
-
-
-			catch(Exception e)
-			{
-				System.out.println(e.toString());
-			}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.toString());
+		}
 
 
 	}

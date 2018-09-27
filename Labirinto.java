@@ -103,13 +103,7 @@ public class Labirinto
 				progressivo();
 			}
 		}
-		//Inverte o Caminho para deixalo na ordem correta
-		inverso = new Pilha<Coordenada>(qtdCoordenadas);
-		while(!caminho.isVazia())
-		{
-			inverso.guarde(caminho.getUmItem());
-			caminho.jogueForaUmItem();
-		}
+
 	}
 
 	protected void acharAdjacentes() throws Exception
@@ -182,6 +176,26 @@ public class Labirinto
 
 	}
 
+	public String inverso() throws Exception
+	{
+		String ret = " ";
+		//Inverte o Caminho para deixa-lo na ordem correta
+		inverso = new Pilha<Coordenada>(qtdLinhas * qtdColunas);
+		while(!caminho.isVazia())
+		{
+			inverso.guarde(caminho.getUmItem());
+			caminho.jogueForaUmItem();
+		}
+		while(!inverso.isVazia())
+		{
+			ret = ret + inverso.getUmItem().toString();
+			inverso.jogueForaUmItem();
+		}
+		return ret;
+
+	}
+
+
 	public String toString()
 	{
 		String ret = " ";
@@ -192,11 +206,7 @@ public class Labirinto
 
 		if(achouSaida)
 		{
-			while(!inverso.isVazia())
-			{
-				ret = ret + inverso.getUmItem().toString() + "\n\r";
-				inverso.jogueForaUmItem();
-			}
+			ret = ret + inverso()+ "\n\r";
 
 			ret = ret + "Entrada: " + entrada.toString() + "\n\r";
 			ret = ret + "Saída: "+ saida.toString() + "\n\r";
@@ -204,6 +214,7 @@ public class Labirinto
 
 		return ret;
 	}
+
 	public int hashCode()
 	{
 		int ret = 666;
@@ -239,31 +250,22 @@ public class Labirinto
 
 		if(this.achouSaida != lab.achouSaida)
 		return false;
-
 		if(this.qtdLinhas != lab.qtdLinhas)
 		return false;
-
 		if(this.qtdColunas != lab.qtdColunas )
 		return false;
-
 		if(this.entrada != lab.entrada)
 		return false;
-
 		if(this.saida != lab.saida)
 		return false;
-
 		if(this.atual != lab.atual)
 		return false;
-
 		if(this.fila != lab.fila)
 		return false;
-
 		if(this.caminho != lab.caminho)
 		return false;
-
 		if(this.possibilidades != lab.possibilidades)
 		return false;
-
 		if(this.inverso != lab.inverso)
 		return false;
 		for(int x = 0; x < qtdLinhas; x++)
