@@ -23,7 +23,7 @@ public class Programa
 	{
 		try
 		{
-			char[][] labirinto = null;
+			/*char[][] labirinto = null;
 			Pilha<Coordenada> caminho;
 			Pilha<Fila<Coordenada>> possibilidades;
 			boolean achouSaida = false;
@@ -57,7 +57,7 @@ public class Programa
 		      	labirinto[e][i] = linha.charAt(i);
 		    }
 
-		    arq.close();
+		    arq.close();*/
 
 		    //Fim da Leitura do arquivo.
 			int qtdDeCoordenadas = qtdLinhas * qtdColunas;
@@ -65,7 +65,7 @@ public class Programa
 		    caminho = new Pilha<Coordenada>(qtdDeCoordenadas);
 		    possibilidades = new Pilha<Fila<Coordenada>>(qtdDeCoordenadas);
 
-			//Busca pela entrada 'E' do labirinto
+			/*//Busca pela entrada 'E' do labirinto
 		    Coordenada atual = null;
 			boolean achou = false;
 
@@ -79,7 +79,7 @@ public class Programa
 							break;
 						}
 			if(atual == null)
-				throw new Exception("Labirinto sem entrada");
+				throw new Exception("Labirinto sem entrada");*/
 
 
 		boolean entrouReg = false;
