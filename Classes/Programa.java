@@ -62,7 +62,7 @@ public class Programa
 		    caminho = new Pilha<Coordenada>(qtdDeCoordenadas);
 		    possibilidades = new Pilha<Fila<Coordenada>>(qtdDeCoordenadas);
 
-			//Busca pela entrada 'E' do labirinto ///Adicionar algo para tratar mais de uma Entrada
+			//Busca pela entrada 'E' do labirinto
 		    Coordenada atual = null;
 			boolean achou = false;
 
@@ -77,48 +77,6 @@ public class Programa
 						}
 			if(atual == null)
 				throw new Exception("Labirinto sem entrada");
-
-
-			/*for(int coluna = 0; coluna < qtdColunas; coluna++)
-		    	if(labirinto != null || labirinto[0][coluna] == 'E')
-		    	{
-		   	 		achou = true;
-		   	 		atual = new Coordenada(0,coluna);
-		    		break;
-				}
-
-			else if(!achou)
-			for(coluna = 0; coluna < qtdColunas; coluna++)
-				if(labirinto[qtdLinhas - 1][coluna] == 'E')
-				{
-					achou = true;
-					atual = new Coordenada(qtdLinhas - 1, coluna);
-					break;
-				}
-
-			else if(!achou)
-			for(int linhas = 1; linhas < qtdLinhas - 1; linhas++) //Começa em 1 e termina em qtdLinhas - 1 pois o primeiro e o ultimo ja foram verificados
-				if(labirinto[linhas][0] == 'E')
-				{
-					achou = true;
-					atual = new Coordenada(linhas, 0);
-					break;
-				}
-
-			else if(!achou)
-			for(linhas = 1; linhas < qtdLinhas - 1; linhas++) //Começa em 1 e termina em qtdLinhas - 1 pois o primeiro e o ultimo ja foram verificados
-				if(labirinto[linhas][qtdColunas - 1] == 'E')
-				{
-					achou = true;
-					atual = new Coordenada(linhas, qtdLinhas - 1);
-					break;
-				}
-				entrada = atual;
-				System.out.println(atual.toString());
-			 if(!achou)
-				throw new Exception("Labirinto sem entrada valida!");
-				*/
-
 
 
 		boolean entrouReg = false;
