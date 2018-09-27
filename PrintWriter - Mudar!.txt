@@ -1,0 +1,5 @@
+PrintWrinter resultado = new PrintWriter(new FileWriter(nomeArqLab  + ".res.txt"));
+resultado.println(lab);
+resultado.close();
+
+--> Declarar isso na classe Labirinto;
