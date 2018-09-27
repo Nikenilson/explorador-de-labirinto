@@ -1,7 +1,9 @@
+package labirinto;
 import java.io.*;
 import fila.*;
 import pilha.*;
 import coordenada.*;
+
 
 public class Labirinto
 {
@@ -20,6 +22,7 @@ public class Labirinto
 	protected Pilha<Coordenada> caminho;
 	protected Pilha<Fila<Coordenada>> possibilidades;
 	protected Pilha<Coordenada> inverso;
+	protected String inversoString;
 
 	int qtdCoordenadas;
 
@@ -83,14 +86,9 @@ public class Labirinto
 		while(!achouSaida)
 		{
 			if (!entrouReg)
-			{
 				acharAdjacentes();
-			}
 			else
-			{
 				entrouReg = false;
-			}
-
 			//Se nenhum adjacente for encontrado, o programa entra em modo regressivo.
 			if(fila.isVazia())
 			{
@@ -99,9 +97,20 @@ public class Labirinto
 
 			}
 			else//Modo Progressivo.
-			{
 				progressivo();
-			}
+		}
+		inversoString = " ";
+		//Inverte o Caminho para deixa-lo na ordem correta
+		inverso = new Pilha<Coordenada>(qtdLinhas * qtdColunas);
+		while(!caminho.isVazia())
+		{
+			inverso.guarde(caminho.getUmItem());
+			caminho.jogueForaUmItem();
+		}
+		while(!inverso.isVazia())
+		{
+			inversoString = inversoString + inverso.getUmItem().toString();
+			inverso.jogueForaUmItem();
 		}
 
 	}
@@ -176,26 +185,6 @@ public class Labirinto
 
 	}
 
-	public String inverso() throws Exception
-	{
-		String ret = " ";
-		//Inverte o Caminho para deixa-lo na ordem correta
-		inverso = new Pilha<Coordenada>(qtdLinhas * qtdColunas);
-		while(!caminho.isVazia())
-		{
-			inverso.guarde(caminho.getUmItem());
-			caminho.jogueForaUmItem();
-		}
-		while(!inverso.isVazia())
-		{
-			ret = ret + inverso.getUmItem().toString();
-			inverso.jogueForaUmItem();
-		}
-		return ret;
-
-	}
-
-
 	public String toString()
 	{
 		String ret = " ";
@@ -206,7 +195,7 @@ public class Labirinto
 
 		if(achouSaida)
 		{
-			ret = ret + inverso()+ "\n\r";
+			ret = ret + inversoString + "\n\r";
 
 			ret = ret + "Entrada: " + entrada.toString() + "\n\r";
 			ret = ret + "Saída: "+ saida.toString() + "\n\r";
@@ -228,6 +217,7 @@ public class Labirinto
 		ret = ret * 2 + caminho.hashCode();
 		ret = ret * 2 + possibilidades.hashCode();
 		ret = ret * 2 + inverso.hashCode();
+		ret = ret * 2 + inversoString.hashCode();
 		for(int x = 0; x < qtdLinhas; x++)
 			for(int y = 0;y < qtdColunas; y++)
 				ret = ret * 2 + labirinto[x][y];

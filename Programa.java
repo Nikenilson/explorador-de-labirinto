@@ -2,6 +2,7 @@ import java.io.*;
 import fila.*;
 import pilha.*;
 import coordenada.*;
+import labirinto.*;
 
 /**
 * Esta é nossa classe Programa do explorador de labirintos. Ela contém toda a codificação de variáveis, métodos
@@ -20,15 +21,16 @@ public class Programa
 	{
 		try
 		{
-			Labirinto labirinto;
-
+			System.out.println("2");
 			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("Digite o nome do arquivo a ser lido e sua extensao .txt: ");
 			String nomeArquivo = teclado.readLine();
 
-			labirinto = new Labirinto(nomeArquivo);
+			System.out.println("3");
+			Labirinto labirinto = new Labirinto(nomeArquivo); //Erro aqui
+			System.out.println("4");
 			labirinto.resolverLabirinto();
-
+				System.out.println("5");
 			System.out.println("Saída Encontrada!O caminho que leva até ela e o labirinto resolvido foram guardados no arquivo: " + nomeArquivo + ".res.txt" );
 
 			PrintStream resultado = new PrintStream(nomeArquivo.substring(0, nomeArquivo.length() - 4) + ".res.txt"); //O substring no nome do arquivo é pra retirar o.txt do final
