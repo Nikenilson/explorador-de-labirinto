@@ -10,12 +10,26 @@ import java.lang.reflect.*;
 * @since 2018
 */
 
+
+
+
 public class Fila<X> implements Cloneable
 {
 	    protected Object[] vetor;  //private String[] vetor --> ainda não tem tamanho
 	    protected int qtd = 0;
 	    protected int inicio = 0;
 	    protected int fim = 0;
+
+
+
+/**
+ * Este é o construtor da classe Fila. Ele recebe, como parâmetro, a variável inteira que define
+ * a capacidade e, a partir disso, cria uma fila de tal capacidade. Se a capacidade for inferior
+ * a 0, o que não é permitido a uma pilha, lançaremos uma excessão.
+ *
+ * @param int capacidade
+ * @throws Exception "Capacidade inválida"
+ */
 
 	    public Fila(int capacidade) throws Exception
 	    {
@@ -24,6 +38,16 @@ public class Fila<X> implements Cloneable
 
 			this.vetor = new Object[capacidade];
 		}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método cloneDeX define um clone do tipo X escolhido pelo usuário.
+* Seu parâmetro para funcionalidade é o x.
+*
+* @param X x
+*/
 
 		protected X meuCloneDeX(X x)
 		{
@@ -45,6 +69,19 @@ public class Fila<X> implements Cloneable
 
 			return ret;
 		}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método guarde recebe, como parâmetro, um item do tipo escolhido pelo usuário da classe para a fila.
+* O item entrará na última posição. O método lança excessões para caso o parâmetro seja null e para caso
+* a fila já esteja cheia.
+*
+* @param X s
+* @throws Exception "Informação ausente", "Fila cheia"
+*/
 
 	    public void guarde(X s) throws Exception
 	    {
@@ -79,6 +116,17 @@ public class Fila<X> implements Cloneable
 			this.qtd++;
 	    }
 
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método getUmItem tem, como objetivo, retirar um dado da primeira posição da fila.
+* O método lança excessões para caso a fila esteja vazia.
+*
+* @throws Exception "Nada a recuperar"
+*/
+
 	    public X getUmItem() throws Exception
 	    {
 			if(this.isVazia())
@@ -89,27 +137,75 @@ public class Fila<X> implements Cloneable
 	        return (X)this.vetor[this.inicio];
 	    }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método jogueForaUmItem é o método que elimina um dado da fila.
+* O método lança excessões para caso a fila esteja vazia.
+*
+* @throws Exception "Fila vazia"
+*/
+
+
 	    public void jogueForaUmItem() throws Exception
 	    {
-			retur this.qtd==0;
+			if(this.isVazia())
+			   throw new Exception("Fila vazia");
+
+			this.vetor[this.inicio] = null;
+
+			if(this.inicio == this.vetor.length-1)
+			   inicio = 0;
+			else
+				inicio++;
+
+	        qtd--;
 	    }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método isCheia é um boolean que nos mostra quando a fila está cheia ou não,
+* ou seja, quando seu número de dados é semelhante ao da capacidade.
+*/
+
 
 	    public boolean isCheia()
 	    {
 			return this.qtd == this.vetor.length;
 		}
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método isVazia é um outro boolean. Ele nos mostra quando a fila está vazia, isto é,
+* quando sua quantidade de dados é 0.
+	Nos tivemos um problema com o isVazia Original, entao substituimos por essa versao, nao sabemos o que estava acontecendo de errado com o outro, mas comprometia o funcionamento da classe
+*/
+
 	    public boolean isVazia()
 	    {
 			boolean estaVazio = true;
-			   for (int i = 0; i < this.vetor.length; i++)
-			         if (this.vetor[i] != null)
-			                {
-			                    estaVazio = false;
-			                    break;
-			                }
+			  for (int i = 0; i < this.vetor.length; i++)
+			   	if (this.vetor[i] != null)
+			       {
+			          estaVazio = false;
+			          break;
+			       }
             return estaVazio;
 		}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método toString nos traz quantos elementos temos na fila e qual é o atual primeiro deles.
+* Ele é um dos métodos obrigatórios em Java.
+*/
+
 
 		public String toString()
 		{
@@ -118,6 +214,16 @@ public class Fila<X> implements Cloneable
 
 			return this.qtd+" elementos, sendo o primeiro "+this.vetor[inicio];
 		}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método equals é o responsável por comparar um elemento de fila a um objeto de parâmetro
+* Ele é um dos métodos obrigatórios em Java.
+*
+* @param Object obj
+*/
+
 
 		public boolean equals (Object obj) //compara this e obj
 		{
@@ -151,6 +257,15 @@ public class Fila<X> implements Cloneable
 	        return true;
 		}
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método hashCode demonstra o código hash de cada elemento da fila por meio de multiplicações e somas com outros números.
+* Ele é um dos métodos obrigatórios em Java.
+*/
+
+
 		public int hashCode()
 		{
 			int ret = 1; //só não pode ser 0
@@ -162,6 +277,17 @@ public class Fila<X> implements Cloneable
 
 			return ret;
 		}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O construtor de cópia é como um clone, mas para aquilo que pertence à própria fila.
+* O propósito é evitar corrompimento de dados.
+*
+* @param Fila<X> modelo
+* @throws Exception "Modelo ausente"
+*/
 
 		public Fila (Fila<X> modelo) throws Exception
 		{
@@ -179,6 +305,15 @@ public class Fila<X> implements Cloneable
 			for(int i=0; i<modelo.vetor.length; i++)
 		    	this.vetor[i] = modelo.vetor[i];
 		}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método clone é o método duplicador de objetos legítimos de Java.
+* Ele é um dos métodos obrigatórios em Java.
+*/
+
 
 		public Object clone()
 		{
