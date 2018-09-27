@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import fila.*;
 import pilha.*;
 import coordenada.*;
@@ -24,60 +21,31 @@ public class Programa
 		try
 		{
 			Labirinto labirinto;
+
 			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("Digite o nome do arquivo a ser lido e sua extensao .txt: ");
 			String nomeArquivo = teclado.readLine();
-			labirinto = new Labirinto(teclado.readLine());
 
+			labirinto = new Labirinto(nomeArquivo);
 			labirinto.resolverLabirinto();
 
+			System.out.println("Saída Encontrada!O caminho que leva até ela e o labirinto resolvido foram guardados no arquivo: " + nomeArquivo + ".res.txt" );
 
-			PrintWriter resultado =
-			new PrintWriter(
-			new File Writer(nomeArquivo + ".res.txt", "UTF-8");
-			resultado.println(this.labirintoResolvido());
+			PrintStream resultado = new PrintStream(nomeArquivo.substring(0, nomeArquivo.length() - 4) + ".res.txt"); //O substring no nome do arquivo é pra retirar o.txt do final
+			resultado.println(labirinto.toString());
 			resultado.close();
 
-
-
-
-
-
-
-
-		for(int linhaP = 0; linhaP < qtdLinhas;linhaP++)
-		{
+			System.out.print(saida.toString());
 			System.out.println();
-			for(int colunaP = 0; colunaP < qtdColunas;colunaP++)
-				System.out.print(labirinto[linhaP][colunaP]);
-
-		}
-		System.out.println();
-		System.out.println();
-		System.out.println("Saída Encontrada!O caminho que leva até ela é:");
-		Pilha<Coordenada> inverso = new Pilha<Coordenada>(qtdDeCoordenadas);
-		while(!caminho.isVazia())
-		{
-			inverso.guarde(caminho.getUmItem());
-			caminho.jogueForaUmItem();
-		}
-		System.out.print(entrada.toString());
-		while(!inverso.isVazia())
-		{
-			System.out.print(inverso.getUmItem());
-			inverso.jogueForaUmItem();
-		}
-		System.out.print(saida.toString());
-		System.out.println();
-		System.out.println("Entrada: " + entrada.toString());
-		System.out.println("Saída: "+ saida.toString());
-		}
+			System.out.println("Entrada: " + entrada.toString());
+			System.out.println("Saída: "+ saida.toString());
+			}
 
 
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage() + e.toString());
-		}
+			catch(Exception e)
+			{
+				System.out.println(e.toString());
+			}
 
 
 	}

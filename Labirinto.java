@@ -103,9 +103,14 @@ public class Labirinto
 				progressivo();
 			}
 		}
+		//Inverte o Caminho para deixalo na ordem correta
+		inverso = new Pilha<Coordenada>(qtdCoordenadas);
+		while(!caminho.isVazia())
+		{
+			inverso.guarde(caminho.getUmItem());
+			caminho.jogueForaUmItem();
+		}
 	}
-
-
 
 	protected void acharAdjacentes() throws Exception
 	{
@@ -177,8 +182,96 @@ public class Labirinto
 
 	}
 
-	protected void printarResultado
+	public String toString()
+	{
+		String ret = " ";
+
+		for(int e = 0; e < qtdLinhas; e++)
+			for(int i = 0; i < qtdColunas ; i++)
+				ret = ret + labirinto[e][i] + "\n\r";
+
+		if(achouSaida)
+		{
+			while(!inverso.isVazia())
+			{
+				ret = ret + inverso.getUmItem().toString() + "\n\r";
+				inverso.jogueForaUmItem();
+			}
+
+			ret = ret + "Entrada: " + entrada.toString() + "\n\r";
+			ret = ret + "Saída: "+ saida.toString() + "\n\r";
+		}
+
+		return ret;
+	}
+	public int hashCode()
+	{
+		int ret = 666;
+
+		ret = ret * 2 + new Integer(qtdLinhas).hashCode();
+		ret = ret * 2 + new Integer(qtdColunas).hashCode();
+		ret = ret * 2 + entrada.hashCode();
+		ret = ret * 2 + saida.hashCode();
+		ret = ret * 2 + atual.hashCode();
+		ret = ret * 2 + fila.hashCode();
+		ret = ret * 2 + caminho.hashCode();
+		ret = ret * 2 + possibilidades.hashCode();
+		ret = ret * 2 + inverso.hashCode();
+		for(int x = 0; x < qtdLinhas; x++)
+			for(int y = 0;y < qtdColunas; y++)
+				ret = ret * 2 + labirinto[x][y];
+
+		return ret;
+	}
+
+	public boolean equals(Object obj)
+	{
+		if(obj == this)
+		return true;
+
+		if(obj == null)
+		return false;
+
+		if(obj.getClass()!= this.getClass())
+		return false;
+
+		Labirinto lab = (Labirinto) obj;
+
+		if(this.achouSaida != lab.achouSaida)
+		return false;
+
+		if(this.qtdLinhas != lab.qtdLinhas)
+		return false;
+
+		if(this.qtdColunas != lab.qtdColunas )
+		return false;
+
+		if(this.entrada != lab.entrada)
+		return false;
+
+		if(this.saida != lab.saida)
+		return false;
+
+		if(this.atual != lab.atual)
+		return false;
+
+		if(this.fila != lab.fila)
+		return false;
+
+		if(this.caminho != lab.caminho)
+		return false;
+
+		if(this.possibilidades != lab.possibilidades)
+		return false;
+
+		if(this.inverso != lab.inverso)
+		return false;
+		for(int x = 0; x < qtdLinhas; x++)
+				for(int y = 0;y < qtdColunas; y++)
+					if(this.labirinto[x][y] != lab.labirinto[x][y])
+						return false;
+
+		return true;
+
+	}
 }
-
-
-

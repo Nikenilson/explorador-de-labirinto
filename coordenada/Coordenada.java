@@ -92,6 +92,12 @@ public class Coordenada
 		return "("+ oX +"," + oY + ")";
 	}
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+* O método hashCode nos traz o hashCode dessa Coordenada.
+* Ele é um dos métodos obrigatórios em Java.
+*/
 	public int hashCode()
 	{
 		int ret = 666;
