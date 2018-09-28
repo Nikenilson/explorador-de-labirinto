@@ -30,9 +30,10 @@ public class Labirinto
 	{
 		try
 		{
+			localArquivo = nomeDoArquivo;
+
 			FileReader arq = new FileReader(localArquivo);
 			BufferedReader lerArq = new BufferedReader(arq);
-
 			qtdLinhas = Integer.parseInt(lerArq.readLine().trim());
 			qtdColunas = Integer.parseInt(lerArq.readLine().trim());
 
@@ -40,7 +41,7 @@ public class Labirinto
 					throw new Exception ("Tamanho inválido!");
 
 			labirinto = new char[qtdLinhas][qtdColunas];
-			String linha;
+			String linha = "";
 
 			for(int e = 0; e < qtdLinhas; e++)
 			{
@@ -48,18 +49,15 @@ public class Labirinto
 				for(int i = 0; i < qtdColunas; i++)
 				{
 					labirinto[e][i] = linha.charAt(i);
-					if (linha.charAt(i)=='E' || e < qtdLinhas-1 || e >= 0 || i < qtdColunas-1 || i >=0)
-						this.entrada = new Coordenada(e, i);
-					if (linha.charAt(i)=='S' || e < qtdLinhas-1 || e >= 0 || i < qtdColunas-1 || i >=0)
-						this.saida = new Coordenada(e, i);
+					if (linha.charAt(i)=='E')
+					    this.entrada = new Coordenada(e, i);
 				}
 			}
+
+			arq.close();
 		if(this.entrada == null)
 			throw new Exception("Labirinto sem entrada");
-		if(this.saida == null)
-			throw new Exception("Labirinto sem saida");
 
-		arq.close();
 		}
 		catch (FileNotFoundException e1)
 		{
@@ -96,52 +94,52 @@ public class Labirinto
     }
 
 
-    public char getLabirinto()
+    public char[][] getLabirinto()
     {
 	    return this.labirinto;
     }
 
 
-    public getEntrada()
+    public Coordenada getEntrada()
     {
 		return this.entrada;
     }
 
-    public getSaida()
+    public Coordenada getSaida()
     {
 		return this.saida;
     }
 
 
-    public getAtual()
+    public Coordenada getAtual()
     {
 		return this.atual;
     }
 
 
-    public getFila()
+    public Fila getFila()
     {
 		return this.fila;
     }
 
 
-    public getCaminho()
+    public Pilha getCaminho()
     {
 		return this.caminho;
     }
 
 
-    public getPossibilidades()
+    public Pilha getPossibilidades()
     {
 		return this.possibilidades;
     }
 
-    public getInverso()
+    public Pilha getInverso()
     {
 		return this.inverso;
     }
 
-    public String getInversoString
+    public String getInversoString()
     {
 		return this.inversoString;
     }
@@ -150,30 +148,34 @@ public class Labirinto
 	public void resolverLabirinto() throws Exception
 	{
 		qtdCoordenadas = qtdLinhas * qtdColunas;
+
 		caminho = new Pilha<Coordenada>(qtdCoordenadas);
 		possibilidades = new Pilha<Fila<Coordenada>> (qtdCoordenadas);
 
 		boolean entrouReg = false;
-		Fila<Coordenada> fila = null;
+		fila = new Fila<Coordenada>(3);
 
-		atual = new Coordenada (entrada.getX(),entrada.getY());
+		atual = new Coordenada(entrada.getX() , entrada.getY());
 		//Enquanto não encontrar a saída, percorrerá o labirinto nos modos progressivo e regressivo.
-		while(!achouSaida)
-		{
-			if (!entrouReg)
-				acharAdjacentes();
-			else
-				entrouReg = false;
-			//Se nenhum adjacente for encontrado, o programa entra em modo regressivo.
-			if(fila.isVazia())
+			while(!achouSaida)
 			{
-				regressivo();
-				entrouReg = true;
+				if(!entrouReg)
+					acharAdjacentes();
+				else
+					entrouReg = false;
 
+				//Se nenhum adjacente for encontrado, o programa entra em modo regressivo.
+				if(fila.isVazia())
+				{
+					regressivo();
+					entrouReg = true;
+
+				}
+				else//Modo Progressivo.
+					progressivo();
 			}
-			else//Modo Progressivo.
-				progressivo();
-		}
+
+
 		inversoString = " ";
 		//Inverte o Caminho para deixa-lo na ordem correta
 		inverso = new Pilha<Coordenada>(qtdLinhas * qtdColunas);
@@ -199,6 +201,7 @@ public class Labirinto
 		if(y - 1 >= 0)
 			if(labirinto[x][y - 1] == ' ' || labirinto[x][y - 1] == 'S')
 				fila.guarde(new Coordenada(x, y - 1));
+
 		if(x + 1 < qtdLinhas)
 			if(labirinto[x + 1][y] == ' ' || labirinto[x + 1][y] == 'S')
 				fila.guarde(new Coordenada(x + 1 , y));
@@ -215,6 +218,7 @@ public class Labirinto
 
 	protected void regressivo() throws Exception
 	{
+		System.out.println("Entrou regressivo");
 		boolean regressivo = true;
 		while(regressivo)//Modo Regressivo
 		{
@@ -238,8 +242,11 @@ public class Labirinto
 
 	protected void progressivo() throws Exception
 	{
+		System.out.println("Entrou progressivo");
 		//Dá um "passo" até um adjacente e guarda os outros na fila de possibilidades.
-		atual = (Coordenada)fila.getUmItem();
+		System.out.println(";-;");
+		atual = fila.getUmItem();
+		System.out.println("Entrou batata progressivo");
 		fila.jogueForaUmItem();
 
 
@@ -265,8 +272,11 @@ public class Labirinto
 		String ret = " ";
 
 		for(int e = 0; e < qtdLinhas; e++)
+		{
+			ret = ret + "\n\r";
 			for(int i = 0; i < qtdColunas ; i++)
-				ret = ret + labirinto[e][i] + "\n\r";
+				ret = ret + labirinto[e][i];
+		}
 
 		if(achouSaida)
 		{

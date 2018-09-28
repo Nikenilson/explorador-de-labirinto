@@ -21,15 +21,13 @@ public class Programa
 	{
 		try
 		{
-			System.out.println("2");
 			BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("Digite o nome do arquivo a ser lido e sua extensao .txt: ");
 			String nomeArquivo = teclado.readLine();
 
-			System.out.println("3");
-			Labirinto labirinto = new Labirinto(nomeArquivo); //Erro aqui
-			System.out.println("4");
-			labirinto.resolverLabirinto();
+			Labirinto labirinto = new Labirinto(nomeArquivo);
+			//System.out.println(labirinto.toString());
+			labirinto.resolverLabirinto();//Erro aqui
 				System.out.println("5");
 			System.out.println("Saída Encontrada!O caminho que leva até ela e o labirinto resolvido foram guardados no arquivo: " + nomeArquivo + ".res.txt" );
 
