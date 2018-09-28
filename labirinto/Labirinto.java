@@ -72,6 +72,81 @@ public class Labirinto
 
 	}
 
+    public int getLinhas()
+    {
+		return this.qtdLinhas;
+    }
+
+
+    public int getColunas()
+    {
+		return this.qtdColunas;
+    }
+
+
+    public boolean getAchouSaida()
+    {
+		return this.achouSaida;
+    }
+
+
+    public String getLocalArquivo()
+    {
+		return this.localArquivo;
+    }
+
+
+    public char getLabirinto()
+    {
+	    return this.labirinto;
+    }
+
+
+    public getEntrada()
+    {
+		return this.entrada;
+    }
+
+    public getSaida()
+    {
+		return this.saida;
+    }
+
+
+    public getAtual()
+    {
+		return this.atual;
+    }
+
+
+    public getFila()
+    {
+		return this.fila;
+    }
+
+
+    public getCaminho()
+    {
+		return this.caminho;
+    }
+
+
+    public getPossibilidades()
+    {
+		return this.possibilidades;
+    }
+
+    public getInverso()
+    {
+		return this.inverso;
+    }
+
+    public String getInversoString
+    {
+		return this.inversoString;
+    }
+
+
 	public void resolverLabirinto() throws Exception
 	{
 		qtdCoordenadas = qtdLinhas * qtdColunas;
