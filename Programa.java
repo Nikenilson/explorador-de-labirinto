@@ -26,16 +26,10 @@ public class Programa
 			String nomeArquivo = teclado.readLine();
 
 			Labirinto labirinto = new Labirinto(nomeArquivo);
-			//System.out.println(labirinto.toString());
 			labirinto.resolverLabirinto();//Erro aqui
-				System.out.println("5");
+			labirinto.escreverResultado();
 			System.out.println("Saída Encontrada!O caminho que leva até ela e o labirinto resolvido foram guardados no arquivo: " + nomeArquivo + ".res.txt" );
 
-			PrintStream resultado = new PrintStream(nomeArquivo.substring(0, nomeArquivo.length() - 4) + ".res.txt"); //O substring no nome do arquivo é pra retirar o.txt do final
-			System.out.println("Deuses sao reais se vc acredita neles");
-			resultado.println(labirinto.toString());
-			System.out.println("Deuses sao reais se vc acredita neles");
-			resultado.close();
 
 		}
 		catch(Exception e)

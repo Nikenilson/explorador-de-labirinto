@@ -299,7 +299,17 @@ public class Labirinto
 		}
 
 	}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	public void escreverResultado() throws Exception
+	{
+		PrintStream resultado = new PrintStream(localArquivo.substring(0, localArquivo.length() - 4) + ".res.txt"); //O substring no nome do arquivo é pra retirar o.txt do final
+		resultado.println(labirinto.toString());
+		resultado.println(inversoString + "\n\r");
+		resultado.println("Entrada: " + entrada.toString() + "\n\r");
+		resultado.println("Saída: "+ saida.toString() + "\n\r");
+		resultado.close();
+	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public String toString()
