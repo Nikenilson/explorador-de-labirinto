@@ -277,14 +277,16 @@ public class Labirinto
 	{
 		System.out.println("Entrou progressivo");
 		//Dá um "passo" até um adjacente e guarda os outros na fila de possibilidades.
-		System.out.println(";-;");
+		System.out.println("GetUmItem");
 		atual = fila.getUmItem();
-		System.out.println("Entrou batata progressivo");
+		System.out.println("Passou GetUmItem");
 		fila.jogueForaUmItem();
 
 
 		//Verificação da saida.
+		System.out.println("GetX");
 		int xS = atual.getX();
+		System.out.println("GetY");
 		int yS = atual.getY();
 		if(labirinto[xS][yS] == 'S')
 		{
